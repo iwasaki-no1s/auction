@@ -40,8 +40,8 @@ class CategoriesTable extends Table
 			->allowEmpty('id','create');
 		
 		$validator
-			->requirePresence('name','create')
-			->notEmpty('name');
+			->requirePresence('product_name','create')
+			->notEmpty('product_name');
 		
 		return $validator;
 	}

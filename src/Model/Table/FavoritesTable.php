@@ -30,10 +30,6 @@ class CategoriesTable extends Table
 			->integer('id')
 			->allowEmpty('id','create');
 		
-		$validator
-			->requirePresence('name','create')
-			->notEmpty('name');
-		
 		return $validator;
 	}
 }
