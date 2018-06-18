@@ -6,14 +6,14 @@ USE auction;
 DROP TABLE IF EXISTS users;
 CREATE TABLE users(
 	id int(11) not null auto_increment,
-	e_mail varchar(255) not null,
+	email varchar(255) not null,
 	user_name varchar(255) not null,
 	password varchar(255) not null,
 	address varchar(255) not null,
 	created datetime default null,
 	modified datetime default null,
 	PRIMARY KEY(id),
-	UNIQUE KEY (e_mail)
+	UNIQUE KEY (email)
 );
 
 DROP TABLE IF EXISTS products;
