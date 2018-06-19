@@ -36,13 +36,11 @@ body{
 .image{
 	width:350px;
 	padding:10px;
-	background-color:#f00;
 }
 
 .description{
 	width:550px;
 	padding:10px;
-	background-color:#0ff;
 }
 
 #my-exhibit{
