@@ -12,7 +12,7 @@
 	});
 </script>
 <table id="mypage-menu">
-	<tr><td id="my-exhibit"><h3>出品した商品</h3></td><td id="my-bids-history"><h3>入札履歴</h3></td><td id="my-favorites"><h3>☆</h3></td></tr>
+	<tr><td id="my-exhibit"><h3>出品した商品</h3></td><td id="my-bids-history"><h3>入札履歴</h3></td><td id="my-favorites"><h1>☆</h1></td></tr>
 </table>
 <table name="my-exhibit">
 	<?php foreach($my_exhibits as $my_exhibit){ ?>
@@ -32,6 +32,7 @@
 			?>
 			<div>入札数：<?php echo $count ?></div>
 			<div>終了時刻：<?=h($my_exhibit->end_date->format("Y年m月d日H時i分")) ?></div>
+			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$my_exhibit->id]); ?></div>
 		</td>
 	</tr>
 	<?php } ?>
