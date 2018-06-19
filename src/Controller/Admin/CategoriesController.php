@@ -10,10 +10,14 @@ class CategoriesController extends AppController
 		if ($this->request->is ( [
 				'ajax'
 		] )) {
-			
+			$categories = $this->Categories->find('list');
+			$my_exhibits=$this->Categories->Products->find()
+			->contain(['Users'])
+			->all();
+			$this->set ( compact ( 'categories','my_exhibits' ) );
 		}else{
 			$categories = $this->Categories->find('list');
-			$this->set ( compact ( 'categories' ) );
+			$this->set ( compact ( 'categories') );
 		}
 	}
 }
