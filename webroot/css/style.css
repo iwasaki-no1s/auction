@@ -12,3 +12,13 @@ body{
 .main .page-header{
 	margin-top:0;
 }
+
+.mypage-menu{
+	
+}
+
+.mypage-menu td{
+	width:300px;
+	text-align:center;
+	border:solid 1px #000;
+}
