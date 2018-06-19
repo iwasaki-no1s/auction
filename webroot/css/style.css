@@ -19,11 +19,11 @@ body{
 .passive{
 	display:none;
 }
-.mypage-menu{
+#mypage-menu{
 	
 }
 
-.mypage-menu td{
+#mypage-menu td{
 	width:300px;
 	text-align:center;
 	border:solid 1px #000;
@@ -34,11 +34,17 @@ body{
 }
 
 .image{
+	width:350px;
 	padding:10px;
 	background-color:#f00;
 }
 
 .description{
+	width:550px;
 	padding:10px;
 	background-color:#0ff;
+}
+
+#my-exhibit{
+	background-color:#b2ff99;
 }
