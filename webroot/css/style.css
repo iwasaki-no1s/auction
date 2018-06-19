@@ -12,3 +12,33 @@ body{
 .main .page-header{
 	margin-top:0;
 }
+
+.active{
+	display:block;
+}
+.passive{
+	display:none;
+}
+.mypage-menu{
+	
+}
+
+.mypage-menu td{
+	width:300px;
+	text-align:center;
+	border:solid 1px #000;
+}
+
+.product-info{
+	height:200px;
+}
+
+.image{
+	padding:10px;
+	background-color:#f00;
+}
+
+.description{
+	padding:10px;
+	background-color:#0ff;
+}
