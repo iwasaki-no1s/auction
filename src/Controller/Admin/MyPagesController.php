@@ -24,7 +24,7 @@ class MyPagesController extends AppController
 						->where(['user_id'=>$user_id])
 						->all();
 		$bids=$this->Products->Bids->find()->all();
-		dump($my_exhibits);
+		//dump($my_exhibits);
 		$this->set(compact('my_exhibits','bids'));
 	}
 }

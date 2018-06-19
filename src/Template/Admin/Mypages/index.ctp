@@ -26,8 +26,7 @@
 				$count = 0;
 				foreach($bids as $bid){
 					if($bid->product_id==$my_exhibit->id){
-						$count+=1;
-						echo "y";
+						$count++;
 					}
 				}
 			?>
