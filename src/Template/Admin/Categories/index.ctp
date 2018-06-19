@@ -21,7 +21,7 @@ echo $this->Form->input('category_id',[
 	]);
 ?>
 
-<table name="my-exhibit" class="display-non">
+<table name="my-exhibit" class="display-none">
 	<?php foreach($my_exhibits as $my_exhibit){ ?>
 	<tr class="product-info">
 		<td class="image">がぞー</td>

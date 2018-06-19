@@ -46,3 +46,7 @@ body{
 #my-exhibit{
 	background-color:#b2ff99;
 }
+
+.display-non{
+	display:none;
+}
