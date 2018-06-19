@@ -6,7 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class CategoriesTable extends Table
+class ProductsTable extends Table
 {
 	public function initialize(array $config)
 	{
@@ -20,16 +20,17 @@ class CategoriesTable extends Table
 				'foreignKey'=>'user_id'
 		]);
 		$this->hasMany('Bids',[
-				'foreginKey'=>'product_id'
+				'foreignKey'=>'product_id'
 		]);
 		$this->hasMany('Favorites',[
-				'foreginKey'=>'product_id'
+				'foreignKey'=>'product_id'
 		]);
 		$this->belongsTo('Categories',[
-				'foreginKey'=>'category_id'
+				'foreignKey'=>'category_id',
+				'joinType'=>'INNER'
 		]);
 		$this->hasMany('Images',[
-				'foreginKey'=>'product_id'
+				'foreignKey'=>'product_id'
 		]);
 	}
 	

@@ -6,7 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
-class CategoriesTable extends Table
+class BidsTable extends Table
 {
 	public function initialize(array $config)
 	{
@@ -19,7 +19,7 @@ class CategoriesTable extends Table
 				'foreignKey'=>'product_id'
 		]);
 		$this->belongsTo('Users',[
-				'foreginKey'=>'user_id'
+				'foreignKey'=>'user_id'
 		]);
 	}
 	

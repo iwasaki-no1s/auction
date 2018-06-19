@@ -19,7 +19,7 @@ class MyAuthComponent extends AuthComponent
 						"Form"=>[
 								"userModel"=>"Users",
 								"fields"=>[
-										"username"=>"user_name",
+										"username"=>"email",
 										"password"=>"password",
 								],
 						],
