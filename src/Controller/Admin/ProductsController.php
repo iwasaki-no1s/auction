@@ -14,7 +14,7 @@ class ProductsController extends AppController
 			$product = $this->Products->patchEntity($product,$this->request->data);
 			if($this->Products->save($product)){
 				$this->Flash->success(__('商品を出品しました'));
-				return $this->redirect(['controller'=>'MyPage','action'=>'index']);
+				return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 			}
 			$this->Flash->error(__('出品に失敗しました'));
 		}
