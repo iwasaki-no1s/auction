@@ -1,9 +1,9 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<?=$this->Html->link("落札くん",["controller"=>"MyPages","action"=>"index"],["class"=>"navbar-brand"]); ?>
+			<?=$this->Html->link("落札マスター",["controller"=>"MyPages","action"=>"index"],["class"=>"navbar-brand"]); ?>
 		</div>
-		<div class="collapse" navbar-collapse">
+		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<?=$this->Html->link("出品","#",["data-toggle"=>"dropdown"]); ?>
