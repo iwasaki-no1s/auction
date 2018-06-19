@@ -24,6 +24,7 @@
 						<li><?=$this->Html->link("マイページ","/admin/my-pages/index");?></li>
 						<li><?=$this->Html->link("ユーザ情報変更","/admin/users/edit");?></li>
 						<li><?=$this->Html->link("ログアウト","/admin/users/logout");?></li>
+						ppppppppppppppppppppppppppppppppppppppppp
 					</ul>
 				</li>
 			</ul>
