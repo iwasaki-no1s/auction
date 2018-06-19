@@ -20,10 +20,11 @@ class MyPagesController extends AppController
 		];
 		
 		$my_exhibits=$this->Products->find()
+						->contain(['Categories','Users'])
 						->where(['user_id'=>$user_id])
 						->all();
-		dump($my_exhibits);
-		$products = $this->paginate($this->Products);
-		$this->set(compact('products'));
+		$bids=$this->Products->Bids->find()->all();
+		//dump($my_exhibits);
+		$this->set(compact('my_exhibits','bids'));
 	}
 }
