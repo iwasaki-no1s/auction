@@ -23,13 +23,15 @@
 			<div><?=$this->Html->link($my_exhibit->user->user_name,["controller"=>"products","action"=>"user"]); ?></div>
 			<div><?=$this->Html->link($my_exhibit->category->name,["controller"=>"products","action"=>"catogory"]); ?></div>
 			<?php
-				$bids_count=0;
-				//入札の数をカウントする
+				$count = 0;
 				foreach($bids as $bid){
-					
+					if($bid->product_id==$my_exhibit->id){
+						$count+=1;
+						echo "y";
+					}
 				}
 			?>
-			<div>入札数：<?php $bids_count ?></div>
+			<div>入札数：<?php echo $count ?></div>
 			<div>終了時刻：<?=h($my_exhibit->end_date->format("Y年m月d日H時i分")) ?></div>
 		</td>
 	</tr>
