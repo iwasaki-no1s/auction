@@ -18,6 +18,9 @@
 						<li><?=$this->Html->link("カテゴリーで探す","/admin/categories/index");?></li>
 					</ul>
 				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<p class="navbar-text">ようこそ、<?=$auth["user_name"];?></p>
 				<li class="dropdown">
 					<?=$this->Html->link("ユーザ","#",["data-toggle"=>"dropdown"]);?>
 					<ul class="dropdown-menu">
