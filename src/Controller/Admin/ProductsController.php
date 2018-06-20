@@ -20,4 +20,16 @@ class ProductsController extends AppController
 		}
 		$this->set(compact('product','id','category'));
 	}
+	
+	//入札(仮)
+	public function add($product_id=null)
+	{
+		$user_id=$this->MyAuth->user('id');
+		$product=$this->Products->get($product_id);
+		if($this->request->is('post')){
+			
+		}
+		//dump($product);
+		$this->set(compact('user_id','product'));
+	}
 }
