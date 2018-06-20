@@ -45,6 +45,15 @@ class MyPagesController extends AppController
 		
 		dump($my_bids_history);
 		*/
-		$this->set(compact('my_exhibits','bids','my_bids_histories'));
+		
+		$my_favorites=$this->Products->find()
+		->contain(['Categories','Users','Bids','Favorites'])
+		->innerJoinWith('Favorites', function($q) use ($user_id) {
+			return $q->where(['Favorites.user_id'=>$user_id]);
+		})
+		//->group(['Products.id'])
+		->all();
+		//dump($my_favorites);
+		$this->set(compact('my_exhibits','bids','my_bids_histories','my_favorites'));
 	}
 }
