@@ -22,18 +22,22 @@ function categorySearchFormInit(){
 function tableAttr(products){
 	$('#result').text('');
 	if(products.length==0){
+		console.log(products);
+		$('#result table').remove();
 		$('#result').text('選択されたカテゴリーには商品がありません');
 		return;
 	}
+	$('#result').append('<div id="mes">'+'検索結果 ： '+products[0].category.name+'</div>');
 	$('#result').append('<table>');
-	 $.each(products, function(i, value){
+	$.each(products, function(key, value){
 		 console.log(value);
-	$('#result').after('<tr class="product-info">'
+	$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image" style="background-color:red">商品画像</td>'
 	                   +'<td class="description" style="background-color:blue">'
-	                   +value.product_name+'<br/>'
-	                   //+value.user[user_name]+'<br/>'
-	                   +value.detail+'<br/>'
+	                   +'商品名　   : '+value.product_name+'<br/>'
+	                   +'出品者　   : '+value.user.user_name+'<br/>'
+	                   +'入札数　   : '+value.bids.length+'<br/>'
+	                   +'終了時刻  : '+value.end_date+'<br/>'
 	                   +'</td></tr>');
 	});
 	$("#result").after("</table>")

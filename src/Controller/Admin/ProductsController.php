@@ -21,13 +21,15 @@ class ProductsController extends AppController
 		$this->set(compact('product','id','category'));
 	}
 	
-	//入札(仮)
-	public function add($product_id=null)
+
+	public function bid($product_id=null)
 	{
-		$user_id=$this->MyAuth->user('id');
-		$product=$this->Products->get($product_id);
-		$bid=$this->Products->Bids->newEntity();
-		//dump($product);
-		$this->set(compact('user_id','product','bid'));
+		$user_id = $this->MyAuth->user('id');
+		$bids = $this->Products->Bids->find()->where(['product_id'=>$product_id]);
+		$current = $bids->select(['max_price' => $bids->func()->max('price')])->first();
+		$bid = $this->Products->Bids->newEntity();
+		//dump($current);
+		$product = $this->Products->get($product_id);
+		$this->set(compact('user_id','product','bid','current'));
 	}
 }

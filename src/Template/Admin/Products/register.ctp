@@ -30,6 +30,7 @@ echo $this->Form->input('end_date',[
 echo $this->Form->input('category_id',[
 	'options'=>$category,
 	'label'=>"カテゴリー",
+	'empty'=>'選択してください',
 	]);
 echo $this->Form->hidden('user_id',['default'=>$id]);
 echo $this->Form->hidden('sold',['default'=>0]);
