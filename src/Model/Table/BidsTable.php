@@ -32,11 +32,11 @@ class BidsTable extends Table
 		$validator
 			->requirePresence('price','create')
 			->notEmpty('price');
-		
+	
 		$validator
-			->requirePresence('user_id','create')
-			->notEmpty('user_id');
-		
+			->integer('user_id')
+			->notEmpty('user_id');				
+			
 		return $validator;
 	}
 }
