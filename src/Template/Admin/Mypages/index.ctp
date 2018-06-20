@@ -39,13 +39,22 @@
 			<div><?=$this->Html->link($my_bids_history->category->name,["controller"=>"products","action"=>"catogory",$my_bids_history->category_id]); ?></div>
 			<div>入札数：<?= count($my_bids_history->bids); ?></div>
 			<div>終了時刻：<?=h($my_bids_history->end_date->format("Y年m月d日H時i分")); ?></div>
-			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$my_bids_history->id]); ?></div>
+			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$my_bids_history->id]); ?></div>
 		</td>
 	</tr>
 	<?php } ?>
 </table>
 <table name="my-favorites" class="passive">
-	<tr>
-	
+	<?php foreach($my_favorites as $my_favorite){ ?>
+	<tr class="product-info">
+		<td class="image">がぞー</td>
+		<td class="description">
+			<div><?=$this->Html->link($my_favorite->product_name,["controller"=>"products","action"=>"detail",$my_favorite->id]); ?></div>
+			<div><?=$this->Html->link($my_favorite->user->user_name,["controller"=>"products","action"=>"user",$my_favorite->user_id]); ?></div>
+			<div><?=$this->Html->link($my_favorite->category->name,["controller"=>"products","action"=>"catogory",$my_favorite->category_id]); ?></div>
+			<div>入札数：<?= count($my_favorite->bids); ?></div>
+			<div>終了時刻：<?=h($my_favorite->end_date->format("Y年m月d日H時i分")); ?></div>
+		</td>
 	</tr>
+	<?php } ?>
 </table>
