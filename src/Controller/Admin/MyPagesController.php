@@ -10,6 +10,7 @@ class MyPagesController extends AppController
 	{
 		parent::initialize();
 		$this->Products = TableRegistry::get('Products');
+		$this->Bids=TableRegistry::get('Bids');
 	}
 	
 	public function index()
@@ -20,11 +21,30 @@ class MyPagesController extends AppController
 		];
 		
 		$my_exhibits=$this->Products->find()
-						->contain(['Categories','Users'])
+						->contain(['Categories','Users','Bids'])
 						->where(['user_id'=>$user_id])
 						->all();
-		$bids=$this->Products->Bids->find()->all();
 		//dump($my_exhibits);
-		$this->set(compact('my_exhibits','bids'));
+		
+		$my_bids_histories=$this->Products->find()
+		->contain(['Categories','Users','Bids'])
+		->innerJoinWith('Bids', function($q) use ($user_id) {
+			return $q->where(['Bids.user_id'=>$user_id]);
+			})
+		->group(['Products.id'])
+		->all();
+		//dump($my_bids_histories);
+		
+						
+		// success
+		/*
+		$my_bids_history=$this->Bids->find()
+							->contain(['Products','Products.Users','Products.Bids'])
+							->where(['Bids.user_id'=>$user_id])
+							->all();
+		
+		dump($my_bids_history);
+		*/
+		$this->set(compact('my_exhibits','bids','my_bids_histories'));
 	}
 }
