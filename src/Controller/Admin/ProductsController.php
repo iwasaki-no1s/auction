@@ -25,11 +25,29 @@ class ProductsController extends AppController
 	public function bid($product_id=null)
 	{
 		$user_id = $this->MyAuth->user('id');
-		$bids = $this->Products->Bids->find()->where(['product_id'=>$product_id]);
-		$current = $bids->select(['max_price' => $bids->func()->max('price')])->first();
-		$bid = $this->Products->Bids->newEntity();
+		$bids = $this->Products->Bids
+					->find()
+					->where(['product_id'=>$product_id]);
+		$current = $bids
+					->select(['max_price' => $bids->func()->max('price')])
+					->first();
+		$bid = $this->Products->Bids
+					->newEntity();
 		//dump($current);
-		$product = $this->Products->get($product_id);
+		$product = $this->Products
+					->get($product_id);
 		$this->set(compact('user_id','product','bid','current'));
+	}
+	
+	public function favorites($product_id=null)
+	{
+		$user_id=$this->MyAuth->user('id');
+		$favorites=$this->Products->Favorites
+					->newEntity();
+		$favorites->user_id=$user_id;
+		$favorites->product_id=$product_id;
+		
+		
+		
 	}
 }
