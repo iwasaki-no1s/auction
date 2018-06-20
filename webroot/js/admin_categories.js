@@ -1,7 +1,9 @@
 $(function(){
 	$('#selectCategories').change(categorySearchRequest);
 });
-
+$(function(){
+	$('#selectCategories').onload(categorySelectedhRequest);
+});
 function categorySearchRequest(event){
 	categorySearchFormInit();
 	var data = $('#selectCategories').serialize();
