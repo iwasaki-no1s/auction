@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-		<?=$this->Html->link("落とします（仮）","/users/login",["class"=>"navbar-brand"]);?>
+		<?=$this->Html->link("コロリちゃん","/users/login",["class"=>"navbar-brand"]);?>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">

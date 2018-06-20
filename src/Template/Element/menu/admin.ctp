@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<?=$this->Html->link("落札マスター",["controller"=>"MyPages","action"=>"index"],["class"=>"navbar-brand"]); ?>
+			<?=$this->Html->link("コロリちゃん",["controller"=>"MyPages","action"=>"index"],["class"=>"navbar-brand"]); ?>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
