@@ -2,8 +2,7 @@
 
 <h3><?= $product->product_name ?></h3>
 <?php
-	echo $this->Form->create($product,['url'=>["controller"=>"bids","action"=>"add"]]);
-//	echo $this->Form->hidden('product_id',['value'=>$product->id]);
+	echo $this->Form->create($bid,['url'=>["controller"=>"bids","action"=>"add",$product->id]]);
 	echo $this->Form->input('price',[
 		'default'=>0,
 		'min'=>0,

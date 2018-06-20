@@ -26,10 +26,8 @@ class ProductsController extends AppController
 	{
 		$user_id=$this->MyAuth->user('id');
 		$product=$this->Products->get($product_id);
-		if($this->request->is('post')){
-			
-		}
+		$bid=$this->Products->Bids->newEntity();
 		//dump($product);
-		$this->set(compact('user_id','product'));
+		$this->set(compact('user_id','product','bid'));
 	}
 }
