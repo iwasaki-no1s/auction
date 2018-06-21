@@ -108,12 +108,11 @@ class ProductsController extends AppController
 		//dump($search_word);
 		$key_word=$search_word["search_word"];
 		$conditions=array('OR'=>array(
-				array(
-					'product_name LIKE' 		=> '%'.$key_word.'%',
-				//	'Users.user_name LIKE'		=> '%'.$key_word.'%',
-				//	'Categories.name LIKE'		=> '%'.$key_word.'%'
+				array('product_name LIKE' 		=> '%'.$key_word.'%'),
+				array('Users.user_name LIKE'		=> '%'.$key_word.'%'),
+				array('Categories.name LIKE'		=> '%'.$key_word.'%'),
 				)
-		));
+		);
 		$products=$this->Products
 						->find('all',array('conditions'=>$conditions))
 						->contain(['Users','Categories'])
