@@ -47,7 +47,7 @@ class ProductsController extends AppController
 		$this->set(compact('user_id','product','bid','current'));
 	}
 	
-	public function favorites($product_id=null)
+	public function favorite($product_id=null)
 	{
 		$user_id=$this->MyAuth->user('id');
 		$favorite=$this->Products->Favorites
@@ -61,4 +61,31 @@ class ProductsController extends AppController
 		$this->Flash->error(__('お気に入りの登録に失敗しました'));
 		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 	}
+	
+	public function delete($product_id=null)
+	{
+		$user_id=$this->MyAuth->user('id');
+		$check=$this->Products
+					->find()
+					->contain(['Bids'])
+					->where(['id'=>$product_id])
+					->first();
+		try{
+			$product=$this->Products->get($check->id);
+		}catch(\Exception $e){
+			$this->Flash->error(__('商品が存在しません'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
+		if( count($check->bids) >0){
+			$this->Flash->error(__('入札者がいます'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
+		if($check->user_id==$user_id){
+			$this->Products->delete($product);
+			$this->Flash->success(__('出品を取り消しました'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
+		$this->Flash->error(__('削除権限がありません'));
+		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+	}	
 }

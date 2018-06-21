@@ -1,9 +1,18 @@
 $(function(){
 	$('#selectCategories').change(categorySearchRequest);
 });
+<<<<<<< HEAD
 $(function(){
 	$('#selectCategories').onload(categorySelectedhRequest);
 });
+=======
+
+$(function(){
+	$('#selectCategories').change(categorySearchRequest);
+});
+
+
+>>>>>>> iwasaki
 function categorySearchRequest(event){
 	categorySearchFormInit();
 	var data = $('#selectCategories').serialize();
