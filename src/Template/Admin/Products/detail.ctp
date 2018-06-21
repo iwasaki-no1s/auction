@@ -7,16 +7,15 @@
 		<div>入札数　：   <?= count($product->bids); ?></div>
 		<div>終了時刻：  <?=h($product->end_date->format("Y年m月d日H時i分")); ?></div>
 		<?php if($user_id==$product->user_id){ ?>
-			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id]); ?></div>
+			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-info"]]); ?></div>
 		<?php }else{ ?>
-			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id]); ?></div>
+			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
 		<?php } ?>
 		<?php if($favorite_check==0){ ?>
-			<button class="add-favorite"><?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id]); ?></button>
+			<?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id],["class"=>["btn btn-success"]]); ?>
 		<?php }else{ ?>
-			<div><?=$this->Html->link("お気に入りを削除する",["controller"=>"favorites","action"=>"delete",$product->id]); ?></div>
+			<?=$this->Html->link("お気に入りを削除する",["controller"=>"favorites","action"=>"delete",$product->id],["class"=>["btn btn-success"]]); ?>
 		<?php } ?>
-			<button class="add-favorite">★</button>
 	</div>
 </div>
 <?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id]); ?>
