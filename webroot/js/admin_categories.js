@@ -1,18 +1,21 @@
 $(function(){
 	$('#selectCategories').change(categorySearchRequest);
-});
-<<<<<<< HEAD
-$(function(){
-	$('#selectCategories').onload(categorySelectedhRequest);
-});
-=======
-
-$(function(){
-	$('#selectCategories').change(categorySearchRequest);
+	$(window).load(categorySelectedRequest);
 });
 
 
->>>>>>> iwasaki
+function categorySelectedRequest(event){
+	var data = $('#selectCategories').serialize();
+	$.ajax({
+		url:"/auction/admin/categories/index/",
+		type:"PATCH",
+		data:data,
+		dataType:"json",
+		success:tableAttr,
+		error:adminCategorySearchError,
+	});
+}
+
 function categorySearchRequest(event){
 	categorySearchFormInit();
 	var data = $('#selectCategories').serialize();
@@ -43,8 +46,8 @@ function tableAttr(products){
 	$.each(products, function(key, value){
 		 console.log(value);
 	$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image" style="background-color:red">商品画像</td>'
-	                   +'<td class="description" style="background-color:blue">'
+	                   +'<td class="image">商品画像</td>'
+	                   +'<td class="description">'
 	                   +'商品名　   : '+value.product_name+'<br/>'
 	                   +'出品者　   : '+value.user.user_name+'<br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
