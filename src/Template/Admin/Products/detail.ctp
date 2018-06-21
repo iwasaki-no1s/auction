@@ -11,6 +11,12 @@
 		<?php }else{ ?>
 			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id]); ?></div>
 		<?php } ?>
-		<div><?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id]); ?></div>
+		<?php if($favorite_check==0){ ?>
+			<button class="add-favorite"><?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id]); ?></button>
+		<?php }else{ ?>
+			<div><?=$this->Html->link("お気に入りを削除する",["controller"=>"favorites","action"=>"delete",$product->id]); ?></div>
+		<?php } ?>
+			<button class="add-favorite">★</button>
 	</div>
 </div>
+<?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id]); ?>
