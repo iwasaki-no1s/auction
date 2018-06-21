@@ -129,7 +129,6 @@ class ProductsController extends AppController
 								'contain'=>['Users','Categories','Bids']
 		]);
 		//dump($product);
-		
 		$this->set(compact('user_id','product'));
 	}
 	
@@ -145,7 +144,7 @@ class ProductsController extends AppController
 		$current = $bids
 			->select(['max_price' => $bids->func()->max('price')])
 			->first();
-		if($product->max_price<=$current && $product->sold==0){
+		if($product->max_price<=($current && $product->sold==0)){
 			$product = array('sold'=>1);
 			$this->Products->save($product);
 			$this->Flah->success(__('即決価格で落札しました'));
