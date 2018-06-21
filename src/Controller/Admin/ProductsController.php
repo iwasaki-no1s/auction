@@ -87,5 +87,18 @@ class ProductsController extends AppController
 		}
 		$this->Flash->error(__('削除権限がありません'));
 		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+	}
+	
+	public function user($user_id)
+	{
+		$user=$this->Products->Users->get($user_id);
+		//dump($user);
+		$products=$this->Products
+						->find()
+						->contain(['Users','Categories'])
+						->where(['user_id'=>$user_id])
+						->all();
+		//dump($products);
+		$this->set(compact('user','products'));
 	}	
 }
