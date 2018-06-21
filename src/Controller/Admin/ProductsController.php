@@ -105,7 +105,7 @@ class ProductsController extends AppController
 	public function search()
 	{
 		$search_word=$this->request->data;
-		dump($search_word);
+		//dump($search_word);
 		$key_word=$search_word["search_word"];
 		$conditions=array('OR'=>array(
 				array('product_name LIKE' 		=> '%'.$key_word.'%'),
