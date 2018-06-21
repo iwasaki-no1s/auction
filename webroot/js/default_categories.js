@@ -7,12 +7,12 @@ $(function(){
 function categorySelectedRequest(event){
 	var data = $('#selectCategories').serialize();
 	$.ajax({
-		url:"/auction/admin/categories/index/",
+		url:"/auction/categories/index/",
 		type:"PATCH",
 		data:data,
 		dataType:"json",
 		success:tableAttr,
-		error:adminCategorySearchError,
+		error:defaultCategorySearchError,
 	});
 }
 
@@ -20,12 +20,12 @@ function categorySearchRequest(event){
 	categorySearchFormInit();
 	var data = $('#selectCategories').serialize();
 	$.ajax({
-		url:"/auction/admin/categories/index/",
+		url:"/auction/categories/index/",
 		type:"PUT",
 		data:data,
 		dataType:"json",
 		success:tableAttr,
-		error:adminCategorySearchError,
+		error:defaultCategorySearchError,
 	});
 }
 function categorySearchFormInit(){
@@ -56,7 +56,7 @@ function tableAttr(products){
 	});
 	$("#result").after("</table>")
 }
-function adminCategorySearchError(result){
+function defaultCategorySearchError(result){
 	showErrorMessage("そのカテゴリーには商品はありません")
 }
 

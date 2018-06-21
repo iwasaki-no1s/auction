@@ -6,11 +6,17 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li class="dropdown">
-					<?=$this->Html->link("出品商品一覧","/products/index");?>
+					<?=$this->Html->link("商品を探す","#",["data-toggle"=>"dropdown"]);?>
+					<ul class="dropdown-menu">
+						<li><?=$this->Html->link("出品商品一覧","/products/index");?></li>
+						<li><?=$this->Html->link("カテゴリーで探す","/categories/index");?></li>
+					</ul>
 				</li>
 				<li class="dropdown">
 					<?=$this->Html->link("ユーザー登録","/users/register");?>
 				</li>
+			</ul>
+			<ul class ="nav navbar-nav navbar-right">
 				<li class="dropdown">
 					<?=$this->Html->link("ログイン","/users/login");?>
 				</li>
