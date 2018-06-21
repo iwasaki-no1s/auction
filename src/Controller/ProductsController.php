@@ -13,4 +13,15 @@ class ProductsController extends AppController
 		->all();
 		$this->set(compact('products'));
 	}
+	
+	public function user($user_id)
+	{
+		$user=$this->Products->Users->get($user_id);
+		$products=$this->Products
+		->find()
+		->contain(['Users','Categories'])
+		->where(['user_id'=>$user_id])
+		->all();
+		$this->set(compact('user','products'));
+	}
 }

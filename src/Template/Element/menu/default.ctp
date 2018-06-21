@@ -21,6 +21,22 @@
 					<?=$this->Html->link("ログイン","/users/login");?>
 				</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<?php
+					$key_word="";
+					echo $this->Form->create($key_word,['url'=>["controller"=>"products","action"=>"search"]]);
+					echo $this->Form->button("検索");
+				?>
+			</ul>
+			<ul class="nav navbar-nv navbar-right">
+				<?php
+					echo $this->Form->input("key_word",[
+						'label'=>"",
+						'id'=>"searchBox"
+					]);
+					echo $this->Form->end();
+				?>
+			</ul>
 		</div>
 	</div>
 </div>
