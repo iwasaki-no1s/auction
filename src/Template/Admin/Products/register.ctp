@@ -34,6 +34,6 @@ echo $this->Form->input('category_id',[
 	]);
 echo $this->Form->hidden('user_id',['default'=>$id]);
 echo $this->Form->hidden('sold',['default'=>0]);
-echo $this->Form->button("出品");
+echo $this->Form->button("商品画像登録へ");
 echo $this->Form->end();
 ?>
