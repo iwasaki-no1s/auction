@@ -129,7 +129,13 @@ class ProductsController extends AppController
 								'contain'=>['Users','Categories','Bids']
 		]);
 		//dump($product);
-		$this->set(compact('user_id','product'));
+		$favorite_check=$this->Products->Favorites
+							->find()
+							->where(['product_id'=>$product_id])
+							->andwhere(['user_id'=>$user_id])
+							->count();
+		//dump($favorite_check);
+		$this->set(compact('user_id','product','favorite_check'));
 	}
 	
 	public function soldout($product_id = null)
