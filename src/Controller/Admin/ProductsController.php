@@ -126,7 +126,7 @@ class ProductsController extends AppController
 	{
 		$user_id=$this->MyAuth->user('id');
 		$product=$this->Products->get($product_id);
-		dump($product);
+		//dump($product);
 		
 		$this->set(compact('product'));
 	}
