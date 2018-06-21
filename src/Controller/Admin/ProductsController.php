@@ -125,9 +125,11 @@ class ProductsController extends AppController
 	public function detail($product_id)
 	{
 		$user_id=$this->MyAuth->user('id');
-		$product=$this->Products->get($product_id);
+		$product=$this->Products->get($product_id,[
+								'contain'=>['Users','Categories','Bids']
+		]);
 		//dump($product);
 		
-		$this->set(compact('product'));
+		$this->set(compact('user_id','product'));
 	}
 }
