@@ -21,7 +21,7 @@ class ProductsController extends AppController
 		if($this->request->is('post')){
 			$product = $this->Products->patchEntity($product,$this->request->data);
 			if($this->Products->save($product)){
-				$this->Flash->success(__('商品を出品しました'));
+				$this->Flash->success(__('出品しました'));
 				return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 			}
 			$this->Flash->error(__('出品に失敗しました'));
@@ -41,7 +41,7 @@ class ProductsController extends AppController
 					->first();
 		$bid = $this->Products->Bids
 					->newEntity();
-		//dump($current);
+		
 		$product = $this->Products
 					->get($product_id);
 		$this->set(compact('user_id','product','bid','current'));
