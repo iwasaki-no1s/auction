@@ -51,3 +51,20 @@ body{
 	margin-top:0;
 	padding-top:0;
 }
+#detail-box{
+	border:1px solid #ccc;
+	overflow:hidden;
+}
+#detail-image{
+	width:600px;
+	height:400px;
+	text-align:center;
+	background-color:#80ffff;
+	float:left;
+}
+#detail-description{
+	float:left;
+}
+.add-favorite{
+	color:#ff0;
+}

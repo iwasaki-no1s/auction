@@ -44,6 +44,9 @@ class ProductsController extends AppController
 		
 		$product = $this->Products
 					->get($product_id);
+		if(empty($current->max_price)){
+			$current->max_price = $product->start_price;
+		}
 		$this->set(compact('user_id','product','bid','current'));
 	}
 	
@@ -125,9 +128,38 @@ class ProductsController extends AppController
 	public function detail($product_id)
 	{
 		$user_id=$this->MyAuth->user('id');
-		$product=$this->Products->get($product_id);
-		dump($product);
-		
-		$this->set(compact('product'));
+		$product=$this->Products->get($product_id,[
+								'contain'=>['Users','Categories','Bids']
+		]);
+		//dump($product);
+		$favorite_check=$this->Products->Favorites
+							->find()
+							->where(['product_id'=>$product_id])
+							->andwhere(['user_id'=>$user_id])
+							->count();
+		//dump($favorite_check);
+		$this->set(compact('user_id','product','favorite_check'));
+	}
+	
+	public function soldout($product_id = null)
+	{
+		$this->Products->get($product_id);
+		$product = $this->Products->find()
+			->where(['id'=>$product_id])
+			->first();
+		$bids = $this->Products->Bids
+			->find()
+			->where(['product_id'=>$product_id]);
+		$current = $bids
+			->select(['max_price' => $bids->func()->max('price')])
+			->first();
+		if($product->max_price<=($current && $product->sold==0)){
+			$product = $this->Products->query();
+			$product->update()
+			->set(['sold' => 1])
+			->where(['id' => $product_id])
+			->execute();
+			return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
+		}
 	}
 }
