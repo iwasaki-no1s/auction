@@ -20,8 +20,7 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				
-				<p class="navbar-text">ようこそ、<?=$auth["user_name"];?></p>
+				<p class="navbar-text">ようこそ、<?=$auth["user_name"];?> さん</p>
 				<li class="dropdown">
 					<?=$this->Html->link("ユーザ","#",["data-toggle"=>"dropdown"]);?>
 					<ul class="dropdown-menu">
@@ -30,6 +29,15 @@
 						<li><?=$this->Html->link("ログアウト","/admin/users/logout");?></li>
 					</ul>
 				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<?php
+					$key_word="";
+					echo $this->Form->create($key_word,['url'=>["controller"=>"products","action"=>"search"]]);
+					echo $this->Form->input("key_word");
+					echo $this->Form->button("検索");
+					echo $this->Form->end();
+				?>
 			</ul>
 		</div>
 	</div>

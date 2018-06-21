@@ -100,5 +100,12 @@ class ProductsController extends AppController
 						->all();
 		//dump($products);
 		$this->set(compact('user','products'));
-	}	
+	}
+	
+	public function search()
+	{
+		$key_word=$this->request->data;
+		//dump($key_word);
+		$this->set(compact('key_word'));
+	}
 }
