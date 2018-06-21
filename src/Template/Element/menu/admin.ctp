@@ -32,9 +32,9 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<?php
-					$key_word="";
-					echo $this->Form->create($key_word,['url'=>["controller"=>"products","action"=>"search"]]);
-					echo $this->Form->input("key_word");
+					$search_word="";
+					echo $this->Form->create($search_word,['url'=>["controller"=>"products","action"=>"search"]]);
+					echo $this->Form->input("search_word");
 					echo $this->Form->button("検索");
 					echo $this->Form->end();
 				?>
