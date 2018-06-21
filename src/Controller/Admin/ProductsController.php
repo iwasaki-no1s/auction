@@ -132,4 +132,24 @@ class ProductsController extends AppController
 		
 		$this->set(compact('user_id','product'));
 	}
+	
+	public function soldout($product_id = null)
+	{
+		$this->Products->get($product_id);
+		$product = $this->Products->find()
+			->where(['id'=>$product_id])
+			->first();
+		$bids = $this->Products->Bids
+			->find()
+			->where(['product_id'=>$product_id]);
+		$current = $bids
+			->select(['max_price' => $bids->func()->max('price')])
+			->first();
+		if($product->max_price<=$current && $product->sold==0){
+			$product = array('sold'=>1);
+			$this->Products->save($product);
+			$this->Flah->success(__('即決価格で落札しました'));
+			return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
+		}
+	}
 }
