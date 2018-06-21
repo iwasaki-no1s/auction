@@ -2,6 +2,11 @@ $(function(){
 	$('#selectCategories').change(categorySearchRequest);
 });
 
+$(function(){
+	$('#selectCategories').change(categorySearchRequest);
+});
+
+
 function categorySearchRequest(event){
 	categorySearchFormInit();
 	var data = $('#selectCategories').serialize();
