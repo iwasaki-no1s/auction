@@ -12,14 +12,18 @@ class UsersController extends AppController
 		$this->MyAuth->allow(["login","register"]);
 	}
 	
-	public function login()
+	public function login($product_id=null)
 	{
 		$user = $this->Users->newEntity();
 		if($this->request->is('post')){
 			$user = $this->MyAuth->identify();
 			if($user){
 				$this->MyAuth->setUser($user);
-				return $this->redirect($this->MyAuth->redirectUrl());
+				if($product_id){
+					return $this->redirect(["prefix"=>"admin","controller"=>"products","action"=>"bid",$product_id]);
+				}else{
+					return $this->redirect($this->MyAuth->redirectUrl());
+				}
 			}else{
 				$this->Flash->error(__('email、またはパスワードが間違っています'));
 			}
@@ -35,7 +39,11 @@ class UsersController extends AppController
 			if($this->Users->save($user)){
 				$this->MyAuth->setUser($user);
 				$this->Flash->success("ユーザー登録が完了しました");
-				return $this->redirect($this->MyAuth->redirectUrl());
+				if($product_id){
+					return $this->redirect(["prefix"=>"admin","controller"=>"products","action"=>"bid",$product_id]);
+				}else{
+					return $this->redirect($this->MyAuth->redirectUrl());
+				}
 			}
 			$this->Flash->error(__('ユーザー登録に失敗しました'));
 		}

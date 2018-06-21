@@ -38,6 +38,7 @@ CREATE TABLE bids(
 	product_id int(11) not null,
 	price int(11) not null,
 	user_id int(11) not null,
+	created datetime default null,
 	PRIMARY KEY(id)
 );
 

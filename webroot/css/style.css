@@ -12,3 +12,42 @@ body{
 .main .page-header{
 	margin-top:0;
 }
+
+.active{
+	display:block;
+}
+.passive{
+	display:none;
+}
+#mypage-menu{
+	
+}
+
+#mypage-menu td{
+	width:300px;
+	text-align:center;
+	border:solid 1px #000;
+}
+
+.product-info{
+	height:200px;
+}
+
+.image{
+	width:350px;
+	padding:10px;
+}
+
+.description{
+	width:550px;
+	padding:10px;
+}
+
+#my-exhibit{
+	background-color:#b2ff99;
+}
+
+#searchBox{
+	margin-top:0;
+	padding-top:0;
+}
