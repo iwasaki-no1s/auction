@@ -104,8 +104,21 @@ class ProductsController extends AppController
 	
 	public function search()
 	{
-		$key_word=$this->request->data;
-		//dump($key_word);
-		$this->set(compact('key_word'));
+		$search_word=$this->request->data;
+		//dump($search_word);
+		$key_word=$search_word["search_word"];
+		$conditions=array('OR'=>array(
+				array('product_name LIKE' 		=> '%'.$key_word.'%'),
+				array('Users.user_name LIKE'		=> '%'.$key_word.'%'),
+				array('Categories.name LIKE'		=> '%'.$key_word.'%'),
+				)
+		);
+		$products=$this->Products
+						->find('all',array('conditions'=>$conditions))
+						->contain(['Users','Categories'])
+						->all();
+		//dump($products);
+		
+		$this->set(compact('key_word','products'));
 	}
 }

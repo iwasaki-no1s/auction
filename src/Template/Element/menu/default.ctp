@@ -21,22 +21,16 @@
 					<?=$this->Html->link("ログイン","/users/login");?>
 				</li>
 			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<?php
-					$key_word="";
-					echo $this->Form->create($key_word,['url'=>["controller"=>"products","action"=>"search"]]);
-					echo $this->Form->button("検索");
-				?>
-			</ul>
-			<ul class="nav navbar-nv navbar-right">
-				<?php
-					echo $this->Form->input("key_word",[
-						'label'=>"",
-						'id'=>"searchBox"
-					]);
-					echo $this->Form->end();
-				?>
-			</ul>
+			<?php 
+				echo $this->Form->create("",[
+					'url'=>["controller"=>"products","action"=>"search"],
+					'class'=>["navbar-form navbar-right"],
+				]);
+			?>
+        		<div class="form-group">
+          			<input type="text" class="form-control" placeholder="Search">
+        		</div>
+      		</form>
 		</div>
 	</div>
 </div>
