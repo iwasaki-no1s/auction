@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller\Admin;
+namespace App\Controller;
 
-use App\Controller\Admin\AppController;
+use App\Controller\AppController;
 
 class CategoriesController extends AppController
 {

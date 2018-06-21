@@ -1,4 +1,4 @@
-<?php $this->prepend('script',$this->Html->script('admin_categories'));?>
+<?php $this->prepend('script',$this->Html->script('default_categories'));?>
 <h1 class="page-header">カテゴリーで探す</h1>
 <?php
 echo $this->Form->input('category_id',[
