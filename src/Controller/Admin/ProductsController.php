@@ -44,6 +44,9 @@ class ProductsController extends AppController
 		
 		$product = $this->Products
 					->get($product_id);
+		if(empty($current->max_price)){
+			$current->max_price = $product->start_price;
+		}
 		$this->set(compact('user_id','product','bid','current'));
 	}
 	
@@ -151,8 +154,11 @@ class ProductsController extends AppController
 			->select(['max_price' => $bids->func()->max('price')])
 			->first();
 		if($product->max_price<=($current && $product->sold==0)){
-			$product = array('products' => array('id' => $product_id,  'sold' => 1));
-		
+			$product = $this->Products->query();
+			$product->update()
+			->set(['sold' => 1])
+			->where(['id' => $product_id])
+			->execute();
 			return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
 		}
 	}

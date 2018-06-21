@@ -51,6 +51,7 @@ function tableAttr(products){
 	                   +'出品者　   : '+value.user.user_name+'<br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+value.end_date+'<br/>'
+	                   +'<a href="/auction/admin/products/bid/'+value.id+'">入札</a>'
 	                   +'</td></tr>');
 	});
 	$("#result").after("</table>")
