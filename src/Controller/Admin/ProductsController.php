@@ -121,4 +121,13 @@ class ProductsController extends AppController
 		
 		$this->set(compact('key_word','products'));
 	}
+	
+	public function detail($product_id)
+	{
+		$user_id=$this->MyAuth->user('id');
+		$product=$this->Products->get($product_id);
+		//dump($product);
+		
+		$this->set(compact('product'));
+	}
 }
