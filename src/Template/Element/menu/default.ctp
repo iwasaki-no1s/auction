@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-		<?=$this->Html->link("コロリちゃん","/users/login",["class"=>"navbar-brand"]);?>
+		<?=$this->Html->link("コロリちゃん","/products/index",["class"=>"navbar-brand"]);?>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -27,10 +27,16 @@
 					'class'=>["navbar-form navbar-right"],
 				]);
 			?>
-        		<div class="form-group">
-          			<input type="text" class="form-control" placeholder="Search">
-        		</div>
-      		</form>
+        	<div class="form-group">
+        	<?php 
+        		echo $this->Form->input("search_word",[
+        			'class'=>["form-control"],
+        			'placeholder'=>["キーワードを入力"],
+        			"label"=>"",
+        		]);
+        		echo $this->Form->end();
+        	?>
+        	</div>
 		</div>
 	</div>
 </div>

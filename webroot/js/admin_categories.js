@@ -41,7 +41,6 @@ function tableAttr(products){
 		$('#result').text('選択されたカテゴリーには商品がありません');
 		return;
 	}
-	$('#result').append('<div id="mes">'+'検索結果 ： '+products[0].category.name+'</div>');
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
 		 console.log(value);

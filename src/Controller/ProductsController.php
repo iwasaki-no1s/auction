@@ -24,4 +24,23 @@ class ProductsController extends AppController
 		->all();
 		$this->set(compact('user','products'));
 	}
+	
+	public function search()
+	{
+		$search_word=$this->request->data;
+		$key_word=$search_word["search_word"];
+		$conditions=array('OR'=>array(
+				array('product_name LIKE' 		=> '%'.$key_word.'%'),
+				array('Users.user_name LIKE'		=> '%'.$key_word.'%'),
+				array('Categories.name LIKE'		=> '%'.$key_word.'%'),
+		)
+		);
+		$products=$this->Products
+		->find('all',array('conditions'=>$conditions))
+		->contain(['Users','Categories'])
+		->all();
+		//dump($products);
+	
+		$this->set(compact('key_word','products'));
+	}
 }
