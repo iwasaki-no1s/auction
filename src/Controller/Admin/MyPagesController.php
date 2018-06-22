@@ -3,6 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 class MyPagesController extends AppController
 {
@@ -15,6 +16,13 @@ class MyPagesController extends AppController
 	
 	public function index()
 	{
+		$now = Time::now();
+		$products = $this->Products->query();
+		$products->update()
+		->set(['sold' => 1])
+		->where(['end_date'<= $now])
+		->execute(); // 終了した商品をsold=1にします
+		
 		$user_id=$this->MyAuth->user('id');
 		$this->paginate = [
 				'contain'=>['Categories','Users','Favorites','Images','Bids'],
