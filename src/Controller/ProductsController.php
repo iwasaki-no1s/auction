@@ -14,11 +14,6 @@ class ProductsController extends AppController
 		$sql = "UPDATE products SET sold = 1 Where end_date < '$now'";
 		$conn->query($sql)->execute();
 		// 終了した商品をsold=1にします
-		$product = $this->Products->query();
-		$product->update()
-		->set(['sold' => 1])
-		->where(['end_date'<= $now])
-		->execute(); // 終了した商品をsold=1にします
 		
 		$products = $this->Products->find()
 		->contain(['Users','Categories','Bids'])
