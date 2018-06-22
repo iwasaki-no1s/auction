@@ -7,11 +7,12 @@ class ProductsController extends AppController
 {	
 	public function index()
 	{
+		$user_id=$this->MyAuth->user('id');
 		$products = $this->Products->find()
 		->contain(['Users','Categories','Bids'])
 		->where(['sold'=>0])
 		->all();
-		$this->set(compact('products'));
+		$this->set(compact('user_id','products'));
 	}
 	public function register()
 	{
@@ -94,6 +95,7 @@ class ProductsController extends AppController
 	
 	public function user($user_id)
 	{
+		$login_user_id=$this->MyAuth->user('id');
 		$user=$this->Products->Users->get($user_id);
 		//dump($user);
 		$products=$this->Products
@@ -102,7 +104,7 @@ class ProductsController extends AppController
 						->where(['user_id'=>$user_id])
 						->all();
 		//dump($products);
-		$this->set(compact('user','products'));
+		$this->set(compact('login_user_id','user','products'));
 	}
 	
 	public function search()
