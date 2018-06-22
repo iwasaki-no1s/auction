@@ -9,7 +9,8 @@
 			<div>カテゴリー  : <?=$this->Html->link($product->category->name,["controller"=>"categories","action"=>"index",$product->category_id]); ?></div>
 			<div>入札数　  ：  <?= count($product->bids); ?></div>
 			<div>終了時刻 ：  <?=h($product->end_date->format("Y年m月d日H時i分")); ?></div>
-			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id]); ?></div>
+			<div><?=$this->Html->link("新規登録して入札",["controller"=>"users","action"=>"register",$product->id],["class"=>["btn btn-primary"]]); ?></div>
+			<div><?=$this->Html->link("ログインして入札",["controller"=>"users","action"=>"login",$product->id],["class"=>["btn btn-info"]]); ?></div>
 		</td>
 	</tr>
 <?php } ?>

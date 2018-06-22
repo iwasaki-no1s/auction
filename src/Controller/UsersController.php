@@ -31,7 +31,7 @@ class UsersController extends AppController
 		$this->set(compact('user'));
 	}
 	
-	public function register()
+	public function register($product_id=null)
 	{
 		$user = $this->Users->newEntity();
 		if($this->request->is('post')){
