@@ -45,6 +45,14 @@ class ProductsController extends AppController
 		
 		$product = $this->Products
 					->get($product_id);
+		if($product->user_id == $user_id){
+			$this->Flash->error(__('自分で出品した商品です'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
+		if($product->sold == 1){
+			$this->Flash->error(__('終了した商品は入札できません'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
 		if(empty($current->max_price)){
 			$current->max_price = $product->start_price;
 		}
@@ -155,7 +163,8 @@ class ProductsController extends AppController
 		$current = $bids
 			->select(['max_price' => $bids->func()->max('price')])
 			->first();
-		if($product->max_price<=($current && $product->sold==0)){
+		dump($current);
+		if($product->max_price<=($current && $product->sold==0)){  //渡された商品が現在データベー上での最高落札価格であり、即決価格を超えかつ売れてなければ落札決定
 			$product = $this->Products->query();
 			$product->update()
 			->set(['sold' => 1])
