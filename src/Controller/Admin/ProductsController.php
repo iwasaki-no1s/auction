@@ -54,6 +54,7 @@ class ProductsController extends AppController
 		}
 		$now=Time::now();
 		if($product->sold == 1 || $product->end_date <= $now){
+			$this->changeValueSold($product->id);
 			$this->Flash->error(__('終了した商品は入札できません'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}
@@ -167,7 +168,6 @@ class ProductsController extends AppController
 		$current = $bids
 			->select(['max_price' => $bids->func()->max('price')])
 			->first();
-		dump($current);
 		if($product->max_price<=($current && $product->sold==0)){  //渡された商品が現在データベー上での最高落札価格であり、即決価格を超えかつ売れてなければ落札決定
 			$product = $this->Products->query();
 			$product->update()
@@ -210,6 +210,27 @@ class ProductsController extends AppController
 		}else{
 			$this->Flash->error(__("編集権限がありません"));
 			return $this->redirect(['controller'=>'my-pages','action'=>'index']);
+		}
+	}
+	
+	public function changeValueSold($product_id = null)
+	{
+		$this->Products->get($product_id);
+		$product = $this->Products->find()
+		->where(['id'=>$product_id])
+		->first();
+		$bids = $this->Products->Bids
+		->find()
+		->where(['product_id'=>$product_id]);
+		$current = $bids
+		->select(['max_price' => $bids->func()->max('price')])
+		->first();
+		if($product->max_price<=($current && $product->sold==0)){  //渡された商品が現在データベー上での最高落札価格であり、即決価格を超えかつ売れてなければ落札決定
+			$product = $this->Products->query();
+			$product->update()
+			->set(['sold' => 1])
+			->where(['id' => $product_id])
+			->execute();
 		}
 	}
 }
