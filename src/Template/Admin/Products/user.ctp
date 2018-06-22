@@ -8,11 +8,15 @@
 			<div>カテゴリー  : <?=$this->Html->link($product->category->name,["controller"=>"categories","action"=>"index",$product->category_id]); ?></div>
 			<div>入札数　  ：  <?= count($product->bids); ?></div>
 			<div>終了時刻 ：  <?=h($product->end_date->format("Y年m月d日H時i分")); ?></div>
-			<?php if($login_user_id==$product->user_id){ ?>
-			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>
-		<?php }else{ ?>
-			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
-		<?php } ?>
+			<?php if($product->sold==0){ ?>
+				<?php if($login_user_id==$product->user_id){ ?>
+					<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>
+				<?php }else{ ?>
+					<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
+				<?php } ?>
+			<?php }else{ ?>
+				<h4>オークションが終了した商品です</h4>
+			<?php } ?>
 		</td>
 	</tr>
 <?php } ?>
