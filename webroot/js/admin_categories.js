@@ -5,13 +5,14 @@ $(function(){
 
 
 function categorySelectedRequest(event){
+	categorySearchFormInit();
 	var data = $('#selectCategories').serialize();
 	$.ajax({
 		url:"/auction/admin/categories/index/",
 		type:"PATCH",
 		data:data,
 		dataType:"json",
-		success:tableAttr,
+		success:tableAttrOnLoad,  //パラメーターなしでloadした際に下に選択してくださいを出さないため
 		error:adminCategorySearchError,
 	});
 }
@@ -36,14 +37,12 @@ function categorySearchFormInit(){
 function tableAttr(products){
 	$('#result').text('');
 	if(products.length==0){
-		console.log(products);
 		$('#result table').remove();
 		$('#result').text('選択されたカテゴリーには商品がありません');
 		return;
 	}
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
-		 console.log(value);
 	$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image">商品画像</td>'
 	                   +'<td class="description">'
@@ -56,6 +55,27 @@ function tableAttr(products){
 	});
 	$("#result").after("</table>")
 }
+function tableAttrOnLoad(products){
+	$('#result').text('');
+	if(products.length==0){
+		$('#result table').remove();
+		return;
+	}
+	$('#result').append('<table>');
+	$.each(products, function(key, value){
+	$('#result table').append('<tr class="product-info">'
+	                   +'<td class="image">商品画像</td>'
+	                   +'<td class="description">'
+	                   +'商品名　   : '+value.product_name+'<br/>'
+	                   +'出品者　   : '+value.user.user_name+'<br/>'
+	                   +'入札数　   : '+value.bids.length+'<br/>'
+	                   +'終了時刻  : '+value.end_date+'<br/>'
+	                   +'<a href="/auction/admin/products/bid/'+value.id+'">入札</a>'
+	                   +'</td></tr>');
+	});
+	$("#result").append("</table>")
+}
+
 function adminCategorySearchError(result){
 	showErrorMessage("そのカテゴリーには商品はありません")
 }
