@@ -8,13 +8,14 @@ class FavoritesController extends AppController
 	public function delete($product_id=null)
 	{
 		$user_id=$this->MyAuth->user('id');
-		$check=$this->Favorites
+		
+		$favorite_check=$this->Favorites
 					->find()
 					->where(['user_id'=>$user_id])
 					->andwhere(['product_id'=>$product_id])
 					->first();
 		try{
-			$favorite=$this->Favorites->get($check->id);
+			$favorite=$this->Favorites->get($favorite_check->id);
 		}catch(\Exception $e){
 			$this->Flash->error(__('エラーが起きました'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
