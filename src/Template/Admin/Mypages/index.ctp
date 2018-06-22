@@ -24,7 +24,11 @@
 			<div>カテゴリー: <?=$this->Html->link($my_exhibit->category->name,["controller"=>"categories","action"=>"index",$my_exhibit->category_id]); ?></div>
 			<div>入札数　：   <?= count($my_exhibit->bids); ?></div>
 			<div>終了時刻：  <?=h($my_exhibit->end_date->format("Y年m月d日H時i分")); ?></div>
-			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$my_exhibit->id],["class"=>["btn btn-success"]]); ?></div>
+			<?php if($my_exhibit->sold==0){ ?>
+				<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$my_exhibit->id],["class"=>["btn btn-success"]]); ?></div>
+			<?php }else{ ?>
+				<h4>オークションが終了した商品です</h4>
+			<?php } ?>
 		</td>
 	</tr>
 	<?php } ?>
@@ -39,7 +43,11 @@
 			<div>カテゴリー: <?=$this->Html->link($my_bids_history->category->name,["controller"=>"categories","action"=>"index",$my_bids_history->category_id]); ?></div>
 			<div>入札数　：   <?= count($my_bids_history->bids); ?></div>
 			<div>終了時刻：  <?=h($my_bids_history->end_date->format("Y年m月d日H時i分")); ?></div>
-			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$my_bids_history->id],["class"=>["btn btn-info"]]); ?></div>
+			<?php if($my_bids_history->sold==0){ ?>
+				<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$my_bids_history->id],["class"=>["btn btn-info"]]); ?></div>
+			<?php }else{ ?>
+				<h4>オークションが終了した商品です</h4>
+			<?php } ?>
 		</td>
 	</tr>
 	<?php } ?>
@@ -54,6 +62,9 @@
 			<div>カテゴリー: <?=$this->Html->link($my_favorite->category->name,["controller"=>"categories","action"=>"index",$my_favorite->category_id]); ?></div>
 			<div>入札数　：   <?= count($my_favorite->bids); ?></div>
 			<div>終了時刻：  <?=h($my_favorite->end_date->format("Y年m月d日H時i分")); ?></div>
+			<?php if($my_favorite->sold==1){ ?>
+				<h4>オークションが終了した商品です</h4>
+			<?php } ?>
 			<div><?=$this->Html->link("お気に入りを削除する",["controller"=>"favorites","action"=>"delete",$my_favorite->id],["class"=>["btn btn-warning"]]); ?></div>
 		</td>
 	</tr>
