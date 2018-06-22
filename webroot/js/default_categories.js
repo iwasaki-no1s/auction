@@ -5,13 +5,14 @@ $(function(){
 
 
 function categorySelectedRequest(event){
+	categorySelectFormInit();
 	var data = $('#selectCategories').serialize();
 	$.ajax({
 		url:"/auction/categories/index/",
 		type:"PATCH",
 		data:data,
 		dataType:"json",
-		success:tableAttr,
+		success:tableAttrOnLoad, //load時は「選択したカテゴリーに商品はありません」が必要ないため
 		error:defaultCategorySearchError,
 	});
 }
@@ -33,17 +34,20 @@ function categorySearchFormInit(){
 	$('.help-block').remove();
 	$('.form-group').removeClass('has-error');
 }
+function categorySelectFormInit(){
+	$('#result').text("")
+	$('#message').remove();
+	$('.help-block').remove();
+}
 function tableAttr(products){
 	$('#result').text('');
 	if(products.length==0){
-		console.log(products);
 		$('#result table').remove();
 		$('#result').text('選択されたカテゴリーには商品がありません');
 		return;
 	}
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
-		 console.log(value);
 	$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image">商品画像</td>'
 	                   +'<td class="description">'
@@ -51,10 +55,32 @@ function tableAttr(products){
 	                   +'出品者　   : '+value.user.user_name+'<br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+value.end_date+'<br/>'
+	                   +'<a href="/auction/products/bid/'+value.id+'">入札</a>'
 	                   +'</td></tr>');
 	});
-	$("#result").after("</table>")
+	$("#result").append("</table>")
 }
+function tableAttrOnLoad(products){
+	$('#result').text('');
+	if(products.length==0){
+		$('#result table').remove();
+		return;
+	}
+	$('#result').append('<table>');
+	$.each(products, function(key, value){
+	$('#result table').append('<tr class="product-info">'
+	                   +'<td class="image">商品画像</td>'
+	                   +'<td class="description">'
+	                   +'商品名　   : '+value.product_name+'<br/>'
+	                   +'出品者　   : '+value.user.user_name+'<br/>'
+	                   +'入札数　   : '+value.bids.length+'<br/>'
+	                   +'終了時刻  : '+value.end_date+'<br/>'
+	                   +'<a href="/auction/products/bid/'+value.id+'">入札</a>'
+	                   +'</td></tr>');
+	});
+	$("#result").append("</table>")
+}
+
 function defaultCategorySearchError(result){
 	showErrorMessage("そのカテゴリーには商品はありません")
 }
