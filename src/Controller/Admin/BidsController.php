@@ -45,9 +45,11 @@ class BidsController extends AppController
 					'action'=>'index'
 			]);
 		}
-		if($product->end_price<=$bid->price){
-			$this->Flash->success(__('即決価格です、落札しました'));
+		$end_price = $product->end_price;
+		$bid_price = $bid->price;
+		if($end_price　>=　$bid_price){
 			$this->Bids->save($bid);
+			$this->Flash->success(__('即決価格です、落札しました'));
 			return $this->redirect([
 					'controller'=>'products',
 					'action'=>'soldout',$bid->product_id
