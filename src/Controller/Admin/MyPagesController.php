@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 use App\Controller\Admin\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
+use Cake\Datasource\ConnectionManager;
 
 class MyPagesController extends AppController
 {
@@ -16,12 +17,12 @@ class MyPagesController extends AppController
 	
 	public function index()
 	{
-		$now = Time::now();
-		$products = $this->Products->query();
-		$products->update()
-		->set(['sold' => 1])
-		->where(['end_date'<= $now])
-		->execute(); // 終了した商品をsold=1にします
+		
+		$now = date("Y-m-d H:i:s");
+		$conn = ConnectionManager::get('default');
+		$sql = "UPDATE products SET sold = 1 Where end_date < '$now'";
+		$conn->query($sql)->execute();
+		// 終了した商品をsold=1にします
 		
 		$user_id=$this->MyAuth->user('id');
 		$this->paginate = [

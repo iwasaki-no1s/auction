@@ -2,11 +2,19 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\I18n\Time;
 
 class ProductsController extends AppController
 {	
 	public function index()
 	{
+		$now = Time::now();
+		$product = $this->Products->query();
+		$product->update()
+		->set(['sold' => 1])
+		->where(['end_date'<= $now])
+		->execute(); // 終了した商品をsold=1にします
+		
 		$products = $this->Products->find()
 		->contain(['Users','Categories','Bids'])
 		->where(['sold'=>0])
