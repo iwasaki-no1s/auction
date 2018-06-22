@@ -21,12 +21,12 @@
 <head>
 	<?=$this->Html->charset() ?>
 	<?=$this->Html->meta('icon') ?>
+	<?=$this->fetch('script') ?>
 	<title><?=$this->fetch('title') ?></title>
 	<?=$this->fetch('css') ?>
 </head>
 <body>
 	<?=$this->element("menu/".$menu) ?>
 	<?=$this->element('content') ?>
-	<?=$this->fetch('script') ?>
 </body>
 </html>
