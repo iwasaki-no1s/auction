@@ -31,7 +31,7 @@ class MyPagesController extends AppController
 		
 		$my_exhibits=$this->Products->find()
 						->contain(['Categories','Users','Bids'])
-						->where(['user_id'=>$user_id])
+						->where(['Products.user_id'=>$user_id])
 						->all();
 		//dump($my_exhibits);
 		
