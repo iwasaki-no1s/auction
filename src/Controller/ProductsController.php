@@ -43,4 +43,13 @@ class ProductsController extends AppController
 	
 		$this->set(compact('key_word','products'));
 	}
+	
+	public function detail($product_id)
+	{
+		$product=$this->Products->get($product_id,[
+				'contain'=>['Users','Categories','Bids']
+		]);
+		//dump($product);
+		$this->set(compact('product'));
+	}
 }

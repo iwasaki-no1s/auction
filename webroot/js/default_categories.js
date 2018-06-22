@@ -55,7 +55,8 @@ function tableAttr(products){
 	                   +'出品者　   : '+value.user.user_name+'<br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+value.end_date+'<br/>'
-	                   +'<a href="/auction/products/bid/'+value.id+'">入札</a>'
+	                   +'<a href="/auction/users/register/'+value.id+'" class="btn btn-primary">新規登録して入札</a><br/>'
+	                   +'<a href="/auction/users/login/'+value.id+'" class="btn btn-info">ログインして入札</a>'
 	                   +'</td></tr>');
 	});
 	$("#result").append("</table>")
@@ -75,7 +76,8 @@ function tableAttrOnLoad(products){
 	                   +'出品者　   : '+value.user.user_name+'<br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+value.end_date+'<br/>'
-	                   +'<a href="/auction/products/bid/'+value.id+'">入札</a>'
+	                   +'<a href="/auction/users/register/'+value.id+'" class="btn btn-primary">新規登録して入札</a><br/>'
+	                   +'<a href="/auction/users/login/'+value.id+'" class="btn btn-info">ログインして入札</a>'
 	                   +'</td></tr>');
 	});
 	$("#result").append("</table>")
