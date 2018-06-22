@@ -3,6 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
 use Cake\I18n\Time;
+use Cake\Datasource\ConnectionManager;
 
 class ProductsController extends AppController
 {	
