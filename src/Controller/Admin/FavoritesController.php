@@ -24,4 +24,6 @@ class FavoritesController extends AppController
 		$this->Flash->success(__('お気に入りを削除しました'));
 		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 	}
+	
+	
 }

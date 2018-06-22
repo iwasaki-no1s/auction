@@ -65,11 +65,9 @@ class ProductsController extends AppController
 	
 	public function favorite($product_id=null)
 	{
-		//echo "aaaa";
 		$user_id=$this->MyAuth->user('id');
 		$favorite_check=$this->check_f($user_id,$product_id);
 		//dump($favorite_check);
-		//exit;
 		if($favorite_check===0){
 			$favorite=$this->Products->Favorites
 						->newEntity();
@@ -77,17 +75,13 @@ class ProductsController extends AppController
 			$favorite->product_id=$product_id;
 			if($this->Products->Favorites->save($favorite)){
 				$this->Flash->success(__('お気に入りに登録しました'));
-				//echo "ccc";exit;
-				return $this->redirect(['controller'=>'Products','action'=>'register']);
+				return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 			}
-			//echo "bb";
-			//exit;
 			$this->Flash->error(__('お気に入りの登録に失敗しました'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}else{
-			//echo "hoge";exit;
 			$this->Flash->error(__('既にお気に入りに登録されています'));
-			return $this->redirect(['controller'=>'Products','action'=>'register']);
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}
 	}
 	
