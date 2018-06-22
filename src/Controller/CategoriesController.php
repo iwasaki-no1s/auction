@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 
 class CategoriesController extends AppController
 {
