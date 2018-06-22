@@ -6,10 +6,14 @@
 		<div>カテゴリー: <?=$this->Html->link($product->category->name,["controller"=>"categories","action"=>"index",$product->category_id]); ?></div>
 		<div>入札数　：   <?= count($product->bids); ?></div>
 		<div>終了時刻：  <?=h($product->end_date->format("Y年m月d日H時i分")); ?></div>
-		<?php if($user_id==$product->user_id){ ?>
-			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>
+		<?php if($product->sold==0){ ?>
+			<?php if($user_id==$product->user_id){ ?>
+				<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>
+			<?php }else{ ?>
+				<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
+			<?php } ?>
 		<?php }else{ ?>
-			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
+			<h4>オークションが終了した商品です</h4>
 		<?php } ?>
 		<?php if($favorite_check==0){ ?>
 			<?=$this->Html->link("お気に入りに追加する",["controller"=>"products","action"=>"favorite",$product->id],["class"=>["btn btn-default"]]); ?>

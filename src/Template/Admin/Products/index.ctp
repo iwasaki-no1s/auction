@@ -10,10 +10,10 @@
 			<div>入札数　  ：  <?= count($product->bids); ?></div>
 			<div>終了時刻 ：  <?=h($product->end_date->format("Y年m月d日H時i分")); ?></div>
 			<?php if($user_id==$product->user_id){ ?>
-			<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>
-		<?php }else{ ?>
-			<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
-		<?php } ?>
+				<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>
+			<?php }else{ ?>
+				<div><?=$this->Html->link("入札する",["controller"=>"products","action"=>"bid",$product->id],["class"=>["btn btn-info"]]); ?></div>
+			<?php } ?>
 		</td>
 	</tr>
 <?php } ?>
