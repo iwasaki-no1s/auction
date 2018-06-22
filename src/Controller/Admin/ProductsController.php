@@ -51,9 +51,13 @@ class ProductsController extends AppController
 					->first();
 		$bid = $this->Products->Bids
 					->newEntity();
-		
-		$product = $this->Products
+		try{
+			$product = $this->Products
 					->get($product_id);
+		}catch(\Exception $e){
+			$this->Flash->error(__("存在しない商品です"));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
 		if($product->user_id == $user_id){
 			$this->Flash->error(__('自分で出品した商品です'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
@@ -122,7 +126,12 @@ class ProductsController extends AppController
 	public function user($user_id)
 	{
 		$login_user_id=$this->MyAuth->user('id');
-		$user=$this->Products->Users->get($user_id);
+		try{
+			$user=$this->Products->Users->get($user_id);
+		}catch(\Exception $e){
+			$this->Flash->error(__('存在しないユーザです'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
 		//dump($user);
 		$products=$this->Products
 						->find()
@@ -156,9 +165,14 @@ class ProductsController extends AppController
 	public function detail($product_id)
 	{
 		$user_id=$this->MyAuth->user('id');
-		$product=$this->Products->get($product_id,[
+		try{
+			$product=$this->Products->get($product_id,[
 								'contain'=>['Users','Categories','Bids']
-		]);
+			]);
+		}catch(\Exception $e){
+			$this->Flash->error(__('存在しない商品です'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
 		//dump($product);
 		$favorite_check=$this->check_f($user_id,$product_id);
 		//dump($favorite_check);
@@ -167,7 +181,12 @@ class ProductsController extends AppController
 	
 	public function soldout($product_id = null)
 	{
-		$this->Products->get($product_id);
+		try{
+			$this->Products->get($product_id);
+		}catch(\Exception $e){
+			$this->Flash->error(__('エラーが起きました'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
 		$product = $this->Products->find()
 			->where(['id'=>$product_id])
 			->first();
