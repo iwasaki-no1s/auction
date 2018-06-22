@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\AppController;
+use Cake\I18n\Time;
 
 class ProductsController extends AppController
 {	
@@ -16,10 +17,12 @@ class ProductsController extends AppController
 	}
 	public function register()
 	{
-		$id = $this->MyAuth->user('id');
+		$user_id = $this->MyAuth->user('id');
 		$category = $this->Products->Categories->find('list');
 		$product = $this->Products->newEntity();
 		if($this->request->is('post')){
+			$product->user_id=$user_id;
+			//dump($product);
 			$product = $this->Products->patchEntity($product,$this->request->data);
 			if($this->Products->save($product)){
 				$this->Flash->success(__('出品しました'));
@@ -27,7 +30,7 @@ class ProductsController extends AppController
 			}
 			$this->Flash->error(__('出品に失敗しました'));
 		}
-		$this->set(compact('product','id','category'));
+		$this->set(compact('product','category'));
 	}
 	
 
@@ -49,7 +52,8 @@ class ProductsController extends AppController
 			$this->Flash->error(__('自分で出品した商品です'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}
-		if($product->sold == 1){
+		$now=Time::now();
+		if($product->sold == 1 || $product->end_date <= $now){
 			$this->Flash->error(__('終了した商品は入札できません'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}
@@ -171,6 +175,41 @@ class ProductsController extends AppController
 			->where(['id' => $product_id])
 			->execute();
 			return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
+		}
+	}
+	
+	public function edit($product_id){
+		$user_id=$this->MyAuth->user('id');
+		try{
+			$product=$this->Products->get($product_id,[
+					'contain'=>['Users','Categories']
+			]);
+		}catch(\Exception $e){
+			$this->Flash->error(__("存在しない商品です"));
+			return $this->redirect(['controller'=>'my-pages','action'=>'index']);
+		}
+		//dump($product);
+		$category = $this->Products->Categories->find('list');
+		
+		if($product->user_id==$user_id){
+			if($product->sold==0){
+				if($this->request->is(['patch','post','put'])){
+					 $product=$this->Products->patchEntity($product,$this->request->data);
+					if($this->Products->save($product)){
+						$this->Flash->success(__('商品情報を変更しました'));
+						return $this->redirect(['action'=>'detail',$product_id]);
+					}
+					$this->Flash->error(__('商品情報の変更に失敗しました'));
+					$this->set(compact(['product','category']));
+				}
+				$this->set(compact('product','category'));
+			}else{
+				$this->Flash->error(__("落札された商品です，編集できません"));
+				return $this->redirect(['action'=>'detail',$product_id]);
+			}
+		}else{
+			$this->Flash->error(__("編集権限がありません"));
+			return $this->redirect(['controller'=>'my-pages','action'=>'index']);
 		}
 	}
 }

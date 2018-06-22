@@ -1,0 +1,24 @@
+<h1 class="page-header">商品編集</h1>
+
+<?php
+echo $this->Form->create($product);
+echo $this->Form->input('product_name',['label'=>"商品名"]);
+?>
+<div style="font-weight:bold">詳細</div>
+<?php
+echo $this->Form->textarea('detail',[
+	'label'=>"商品詳細",
+	]);
+echo $this->Form->input('max_price',[
+	'default'=>0,
+	'min'=>0,
+	'label'=>"即決価格",
+	]);
+echo $this->Form->input('category_id',[
+	'options'=>$category,
+	'label'=>"カテゴリー",
+	'empty'=>'選択してください',
+	]);
+echo $this->Form->button("編集を確定する");
+echo $this->Form->end();
+?>
