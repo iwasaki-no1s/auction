@@ -22,7 +22,6 @@ class ProductsController extends AppController
 		$product = $this->Products->newEntity();
 		if($this->request->is('post')){
 			$product->user_id=$user_id;
-			//dump($product);
 			$product = $this->Products->patchEntity($product,$this->request->data);
 			if($this->Products->save($product)){
 				$this->Flash->success(__('出品しました'));
@@ -67,16 +66,23 @@ class ProductsController extends AppController
 	public function favorite($product_id=null)
 	{
 		$user_id=$this->MyAuth->user('id');
-		$favorite=$this->Products->Favorites
-					->newEntity();
-		$favorite->user_id=$user_id;
-		$favorite->product_id=$product_id;
-		if($this->Products->Favorites->save($favorite)){
-			$this->Flash->success(__('お気に入りに登録しました'));
-			return $this->redirect(['controller'=>'Mypages','action'=>'index']);
+		$favorite_check=$this->check_f($user_id,$product_id);
+		//dump($favorite_check);
+		if($favorite_check===0){
+			$favorite=$this->Products->Favorites
+						->newEntity();
+			$favorite->user_id=$user_id;
+			$favorite->product_id=$product_id;
+			if($this->Products->Favorites->save($favorite)){
+				$this->Flash->success(__('お気に入りに登録しました'));
+				return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+			}
+			$this->Flash->error(__('お気に入りの登録に失敗しました'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}else{
+			$this->Flash->error(__('既にお気に入りに登録されています'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}
-		$this->Flash->error(__('お気に入りの登録に失敗しました'));
-		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 	}
 	
 	public function delete($product_id=null)
@@ -147,11 +153,7 @@ class ProductsController extends AppController
 								'contain'=>['Users','Categories','Bids']
 		]);
 		//dump($product);
-		$favorite_check=$this->Products->Favorites
-							->find()
-							->where(['product_id'=>$product_id])
-							->andwhere(['user_id'=>$user_id])
-							->count();
+		$favorite_check=$this->check_f($user_id,$product_id);
 		//dump($favorite_check);
 		$this->set(compact('user_id','product','favorite_check'));
 	}
@@ -232,5 +234,15 @@ class ProductsController extends AppController
 			->where(['id' => $product_id])
 			->execute();
 		}
+	}
+	
+	//お気に入りが既に登録されているかのcheck
+	public function check_f($user_id,$product_id){
+		$favorite_check=$this->Products->Favorites
+		->find()
+		->where(['user_id'=>$user_id])
+		->andwhere(['product_id'=>$product_id])
+		->count();
+		return $favorite_check;
 	}
 }
