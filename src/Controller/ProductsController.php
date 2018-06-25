@@ -9,7 +9,8 @@ class ProductsController extends AppController
 {	
 	public function index()
 	{
-		$now = date("Y-m-d H:i:s");
+		Time::setJsonEncodeFormat("Y-m-d H:i:s");
+		$now = Time::now();
 		$conn = ConnectionManager::get('default');
 		$sql = "UPDATE products SET sold = 1 Where end_date < '$now'";
 		$conn->query($sql)->execute();
@@ -19,6 +20,7 @@ class ProductsController extends AppController
 		->contain(['Users','Categories','Bids'])
 		->where(['sold'=>0])
 		->all();
+
 		$this->set(compact('products'));
 	}
 	

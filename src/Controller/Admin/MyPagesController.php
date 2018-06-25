@@ -18,7 +18,8 @@ class MyPagesController extends AppController
 	public function index()
 	{
 		
-		$now = date("Y-m-d H:i:s");
+		Time::setJsonEncodeFormat("Y-m-d H:i:s");
+		$now = Time::now();
 		$conn = ConnectionManager::get('default');
 		$sql = "UPDATE products SET sold = 1 Where end_date < '$now'";
 		$conn->query($sql)->execute();
