@@ -21,5 +21,11 @@
 		<?php }else{ ?>
 			<?=$this->Html->link("お気に入りを削除する",["controller"=>"favorites","action"=>"delete",$product->id],["class"=>["btn btn-warning"]]); ?>
 		<?php } ?>
+		</br>
+		<?php foreach($bids as $bid){ ?>
+			<?php echo $bid->user->user_name ?>
+			<?php echo $bid->price ?>
+			</br>
+		<?php } ?>
 	</div>
 </div>
