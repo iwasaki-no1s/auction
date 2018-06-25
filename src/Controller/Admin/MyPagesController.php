@@ -20,9 +20,11 @@ class MyPagesController extends AppController
 		
 		Time::setJsonEncodeFormat("Y-m-d H:i:s");
 		$now = Time::now();
-		$conn = ConnectionManager::get('default');
-		$sql = "UPDATE products SET sold = 1 Where end_date < '$now'";
-		$conn->query($sql)->execute();
+		$query = $this->Products->query();
+		$query->update()
+		->set(['sold' => 1])
+		->where(['end_date <=' => $now->format("Y-m-d H:i:s")])
+		->execute();
 		// 終了した商品をsold=1にします
 		
 		$user_id=$this->MyAuth->user('id');
