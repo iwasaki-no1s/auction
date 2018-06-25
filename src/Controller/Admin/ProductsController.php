@@ -38,7 +38,7 @@ class ProductsController extends AppController
 			}
 			if($this->Products->save($product)){
 				$this->Flash->success(__('登録しました'));
-				return $this->redirect(['controller'=>'Images','action'=>'add']);
+				return $this->redirect(['controller'=>'Images','action'=>'add',$product->id]);
 			}
 			$this->Flash->error(__('出品に失敗しました'));
 		}
