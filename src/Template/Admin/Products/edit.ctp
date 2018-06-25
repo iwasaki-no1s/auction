@@ -21,4 +21,6 @@ echo $this->Form->input('category_id',[
 	]);
 echo $this->Form->button("編集を確定する");
 echo $this->Form->end();
+echo $this->Html->link("現在の価格でオークションを終了する",["controller"=>"products","action"=>"finish",$product->id],["class"=>["btn btn-warning"]]);
+echo $this->Html->link("出品を取り消す",["controller"=>"products","action"=>"delete",$product->id],["class"=>["btn btn-danger"]]);
 ?>

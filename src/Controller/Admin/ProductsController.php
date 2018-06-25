@@ -185,6 +185,50 @@ class ProductsController extends AppController
 		return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
 	}
 	
+	public function finish($product_id=null)
+	{
+		try{
+			$product =$this->Products->get($product_id);
+		}catch(\Exception $e){
+			$this->Flash->error(__('エラーが起きました'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
+		//dump($product);
+		//exit;
+		$this->soldOutQuery($product_id);
+		$this->Flash->success(__('オークションを終了しました'));
+		return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
+	}
+	
+	public function changeValueSold($product_id = null)
+	{
+		try{
+			$product =$this->Products->get($product_id);
+		}catch(\Exception $e){
+			$this->Flash->error(__('エラーが起きました'));
+			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+		}
+		$bids = $this->Products->Bids
+		->find()
+		->where(['product_id'=>$product_id]);
+		$current = $bids
+		->select(['max_price' => $bids->func()->max('price')])
+		->first();
+		if($product->max_price<=$current->max_price && $product->sold==0){  //渡された商品が現在データベー上での最高落札価格であり、即決価格を超えかつ売れてなければ落札決定
+			$this->soldOutQuery($product_id);
+		}
+	}
+	
+	private function soldOutQuery($product_id)
+	{
+		$product = $this->Products
+			->query()
+			->update()
+			->set(['sold' => 1])
+			->where(['id' => $product_id])
+			->execute();
+	}
+	
 	public function edit($product_id){
 		$user_id=$this->MyAuth->user('id');
 		try{
@@ -220,28 +264,6 @@ class ProductsController extends AppController
 		}
 	}
 	
-	public function changeValueSold($product_id = null)
-	{
-		try{
-			$product =$this->Products->get($product_id);
-		}catch(\Exception $e){
-			$this->Flash->error(__('エラーが起きました'));
-			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
-		}
-		$bids = $this->Products->Bids
-			->find()
-			->where(['product_id'=>$product_id]);
-		$current = $bids
-			->select(['max_price' => $bids->func()->max('price')])
-			->first();
-		if($product->max_price<=$current->max_price && $product->sold==0){  //渡された商品が現在データベー上での最高落札価格であり、即決価格を超えかつ売れてなければ落札決定
-			$product = $this->Products->query();
-			$product->update()
-			->set(['sold' => 1])
-			->where(['id' => $product_id])
-			->execute();
-		}
-	}
 	
 	//お気に入りが既に登録されているかのcheck
 	public function check_f($user_id,$product_id){
