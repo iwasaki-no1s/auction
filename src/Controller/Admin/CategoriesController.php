@@ -22,10 +22,11 @@ class CategoriesController extends AppController
 			$this->autoRender = FALSE;
 			$category_id = $this->request->data ['category_id'];
 				
-			$products = $this->Categories->Products->find()
-			->contain(['Users','Categories','Bids'])
-			->where(['category_id'=>$category_id])
-			->all();
+			$products = $this->Categories->Products
+				->find()
+				->contain(['Users','Categories','Bids'])
+				->where(['category_id'=>$category_id])
+				->all();
 			echo json_encode($products);
 		}else{
 			Time::setJsonEncodeFormat("Y-m-d H:i:s");

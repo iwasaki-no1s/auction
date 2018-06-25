@@ -29,7 +29,10 @@ class BidsController extends AppController
 			]);
 		}
 		
-		$product = $this->Bids->Products->find()->where(['id'=>$product_id])->first();
+		$product = $this->Bids->Products
+			->find()
+			->where(['id'=>$product_id])
+			->first();
 		$now = Time::now();
 		if($now>=$product->end_date){
 			$this->Flash->error(__('すでに終了した商品です'));
