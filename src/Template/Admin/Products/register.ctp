@@ -1,3 +1,4 @@
+<?php $this->prepend('script',$this->Html->script('admin_products'));?>
 <h1 class="page-header">出品</h1>
 
 <?php
@@ -13,11 +14,13 @@ echo $this->Form->input('start_price',[
 	'default'=>0,
 	'min'=>0,
 	'label'=>"スタート価格",
+	'id'=>"start",
 	]);
 echo $this->Form->input('max_price',[
 	'default'=>0,
 	'min'=>0,
 	'label'=>"即決価格",
+	'id'=>"max",
 	]);
 echo $this->Form->input('end_date',[
 	'type' => 'datetime',

@@ -45,9 +45,8 @@ class BidsController extends AppController
 					'action'=>'index'
 			]);
 		}
-		$end_price = $product->end_price;
-		$bid_price = $bid->price;
-		if($end_price　>=　$bid_price){
+		
+		if($product->max_price　<= $bid->price){
 			$this->Bids->save($bid);
 			$this->Flash->success(__('即決価格です、落札しました'));
 			return $this->redirect([
