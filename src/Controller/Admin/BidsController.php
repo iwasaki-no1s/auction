@@ -25,7 +25,8 @@ class BidsController extends AppController
 			$this->Flash->error ( __ ( 'その金額では入札できません' ) );
 			return $this->redirect ( [
 					'controller' => 'products',
-					'action' => 'bid',$bid->product_id
+					'action' => 'bid',
+					$bid->product_id
 			]);
 		}
 		
@@ -38,14 +39,16 @@ class BidsController extends AppController
 			$this->Flash->error(__('すでに終了した商品です'));
 			return $this->redirect([
 					'controller' => 'products',
-					'action' => 'index'
+					'action' => 'detail',
+					$product_id
 			]);
 		}
 		if($product->sold==1){
 			$this->Flash->error(__('申し訳ございません、入札した商品は現在売り切れです'));
 			return $this->redirect([
 					'controller'=>'products',
-					'action'=>'index'
+					'action'=>'detail',
+					$product_id
 			]);
 		}
 		
@@ -54,7 +57,8 @@ class BidsController extends AppController
 			$this->Flash->success(__('即決価格です、落札しました'));
 			return $this->redirect([
 					'controller'=>'products',
-					'action'=>'soldout',$bid->product_id
+					'action'=>'soldout',
+					$bid->product_id
 			]);
 		}
 	

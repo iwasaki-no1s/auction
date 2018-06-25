@@ -71,7 +71,7 @@ class ProductsController extends AppController
 		if(empty($current->max_price)){
 			$current->max_price = $product->start_price;
 		}
-		$this->set(compact('user_id','product','bid','current'));
+		$this->set(compact('product','bid','current'));
 	}
 	
 	public function favorite($product_id=null)
