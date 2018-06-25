@@ -6,7 +6,7 @@ $(function(){
 function priceRequest(event){
 	productRegisterFormInit();
 	if($('#max').val() <= $('#start').val()){
-		adminPriceCheckerError();
+		adminPriceCheckerError(result);
 		showValidationMessage();
 		return false;
 	}
@@ -31,7 +31,7 @@ function　showErrorMessage(message){
 }
 function showValidationMessage(errors){
 	for (key in errors){
-		var obj = $("[name='"+key+"']");
+		var obj = $("[max_price='"+key+"']");
 		obj.parent().addClass('has-error');
 		var field = error[key];
 		for (var value in field){

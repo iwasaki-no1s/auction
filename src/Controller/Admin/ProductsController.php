@@ -30,6 +30,10 @@ class ProductsController extends AppController
 		if($this->request->is('post')){
 			$product->user_id=$user_id;
 			$product = $this->Products->patchEntity($product,$this->request->data);
+			if($product->start_price >= $product->end_price){
+				$this->Flash->error(__('即決価格はスタート価格より高くしてください'));
+				return $this->redirect(['controller'=>'Products','action'=>'register']);
+			}
 			if($this->Products->save($product)){
 				$this->Flash->success(__('出品しました'));
 				return $this->redirect(['controller'=>'MyPages','action'=>'index']);

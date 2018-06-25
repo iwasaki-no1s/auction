@@ -47,7 +47,7 @@ class ProductsTable extends Table
 		$validator
 			->integer('category_id')
 			->notEmpty('category_id');
-			
+	
 		return $validator;
 	}
 }
