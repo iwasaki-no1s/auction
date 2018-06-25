@@ -26,15 +26,12 @@ class CategoriesController extends AppController
 				->find()
 				->contain(['Users','Categories','Bids'])
 				->where(['category_id'=>$category_id])
+				->andWhere(['sold'=>0])
 				->all();
-			echo json_encode($products);
+			$login_user_id[] = "";
+			$login_user_id = $this->MyAuth->user('id');
+			echo json_encode(compact('products','login_user_id'));
 		}else{
-			Time::setJsonEncodeFormat("Y-m-d H:i:s");
-			$now = Time::now();
-			$conn = ConnectionManager::get('default');
-			$sql = "UPDATE products SET sold = 1 Where end_date < '$now'";
-			$conn->query($sql)->execute();
-			//時間切れの商品を売り切れにする
 			$categories = $this->Categories->find('list');
 			$this->set ( compact ( 'categories','selected_id') );
 		}
