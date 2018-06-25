@@ -36,6 +36,8 @@ echo $this->Form->input('category_id',[
 	'empty'=>"選択してください",
 	]);
 echo $this->Form->hidden('sold',['default'=>0]);
-echo $this->Form->button("商品画像登録へ");
+echo $this->Form->button("商品画像登録へ",[
+	'id'=>"register_button", 
+ ]);
 echo $this->Form->end();
 ?>
