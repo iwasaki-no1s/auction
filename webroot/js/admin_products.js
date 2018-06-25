@@ -7,7 +7,11 @@ function priceRequest(event){
 	productRegisterFormInit();
 	if($('#max').val() <= $('#start').val()){
 		adminPriceCheckerError();
-		showValidationMessage();
+		//showValidationMessage();
+		var obj = $("[name=max_price]");
+		obj.parent().addClass('has-error');
+		var tag='<div class="help-block">即決価格はスタート価格より高くしてください</div>';
+		obj.after(tag);
 		return false;
 	}
 	return true;

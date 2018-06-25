@@ -19,9 +19,9 @@ class ProductsController extends AppController
 		// 終了した商品をsold=1にします
 		$user_id=$this->MyAuth->user('id');
 		$products = $this->Products->find()
-		->contain(['Users','Categories','Bids'])
-		->where(['sold'=>0])
-		->all();
+			->contain(['Users','Categories','Bids'])
+			->where(['sold'=>0])
+			->all();
 		$this->set(compact('user_id','products'));
 	}
 	public function register()
@@ -32,6 +32,10 @@ class ProductsController extends AppController
 		if($this->request->is('post')){
 			$product->user_id=$user_id;
 			$product = $this->Products->patchEntity($product,$this->request->data);
+			if($product->start_price >= $product->max_price){
+				$this->Flash->error(__('即決価格はスタート価格より高くしてください'));
+				return $this->redirect(['controller'=>'Products','action'=>'register']);
+			}
 			if($this->Products->save($product)){
 				$this->Flash->success(__('登録しました'));
 				return $this->redirect(['controller'=>'Images','action'=>'add']);
@@ -66,7 +70,7 @@ class ProductsController extends AppController
 		}
 		$now=Time::now();
 		if($product->sold == 1 || $product->end_date <= $now){
-			$this->changeValueSold($product->id);
+			$this->soldOutQuery($product->id);
 			$this->Flash->error(__('終了した商品は入札できません'));
 			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
 		}
@@ -178,7 +182,15 @@ class ProductsController extends AppController
 		//dump($product);
 		$favorite_check=$this->check_f($user_id,$product_id);
 		//dump($favorite_check);
-		$this->set(compact('user_id','product','favorite_check'));
+		$bids=$this->Products->Bids
+				->find()
+				->contain(['Users'])
+				->where(['product_id'=>$product_id])
+				->order(['price'=>'DESC'])
+				->limit(3)
+				->all();
+		//dump($bids);
+		$this->set(compact('user_id','product','favorite_check','bids'));
 	}
 	
 	public function soldout($product_id = null)
