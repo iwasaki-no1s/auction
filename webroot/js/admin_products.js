@@ -6,8 +6,12 @@ $(function(){
 function priceRequest(event){
 	productRegisterFormInit();
 	if($('#max').val() <= $('#start').val()){
-		adminPriceCheckerError(result);
-		showValidationMessage();
+		adminPriceCheckerError();
+		//showValidationMessage();
+		var obj = $("[name=max_price]");
+		obj.parent().addClass('has-error');
+		var tag='<div class="help-block">即決価格はスタート価格より高くしてください</div>';
+		obj.after(tag);
 		return false;
 	}
 	return true;
@@ -31,7 +35,7 @@ function　showErrorMessage(message){
 }
 function showValidationMessage(errors){
 	for (key in errors){
-		var obj = $("[max_price='"+key+"']");
+		var obj = $("[name='"+key+"']");
 		obj.parent().addClass('has-error');
 		var field = error[key];
 		for (var value in field){
