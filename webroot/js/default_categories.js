@@ -40,6 +40,7 @@ function categorySelectFormInit(){
 	$('.help-block').remove();
 }
 function tableAttr(products){
+	console.log('aaa')
 	$('#result').text('');
 	if(products.length==0){
 		$('#result table').remove();
@@ -49,7 +50,7 @@ function tableAttr(products){
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
 	$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image">aaa</td>'
+	                   +'<td class="image">aaaaaaaaaaaa</td>'
 	                   +'<td class="description">'
 	                   +'商品名　   : '+value.product_name+'<br/>'
 	                   +'出品者　   : '+value.user.user_name+'<br/>'

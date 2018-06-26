@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<?php $this->prepend('script',$this->Html->script('admin_bids_history'));?>
 <h1 class="page-header"><?= $product->product_name ?></h1>
 <div id="detail-box">
 	<div id="detail-image">
@@ -36,18 +38,7 @@
 		<?php } ?>
 		<br/><br/>
 		<div style="margin-left : 20px">
-			<p>入札履歴</p>
-			<table id="bids_table">
-			<tr><th>入札者</th><th style="text-align:right">入札額（￥）</th></tr>
-			<?php 
-			$i=1;
-				foreach($bids as $bid){
-					echo "<tr id='bid_no$i'><td>".$bid->user->user_name."</td>";
-					echo "<td id='bid_price'>".$bid->price."</td></tr>";
-					$i++;
-				}
-			?>
-			</table>
+			<div class="bids-history"></div>
 		</div>
 	</div>
 </div>
