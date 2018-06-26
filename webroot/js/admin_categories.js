@@ -53,9 +53,10 @@ function tableAttr(data){
 		}else{
 		    var link = '<a href="/auction/admin/products/edit/'+value.id+'" class="btn btn-success">編集する</a>';
 		}	
-		var url = value.image.image_name;
+		var image_url = value.images.image_url;
+		console.log(image_url)
 		$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image"><img src="auction/upload_img/url"></td>'
+	                   +'<td class="image"><img src="auction/upload_img/'+image_url+'.jpg"></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   :  <a href="/auction/admin/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
 	                   +'出品者　   :  <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
