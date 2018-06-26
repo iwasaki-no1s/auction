@@ -18,7 +18,6 @@
 	<tr class="product-info">
 		<td class="image">
 			<?php
-				//dump($my_exhibit->images);
 				$image_check=false;
 				foreach($my_exhibit->images as $image){
 					if($image->main_image==1){

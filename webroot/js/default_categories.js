@@ -49,7 +49,18 @@ function tableAttr(products){
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
 	$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image">商品画像</td>'
+	                   +'<td class="image">
+	                   $image_check=false;
+	                   $.each(value, function(key, val)
+	   					if($image->main_image==1){
+	   						echo $this->Html->image("/upload_img/{$image->image_url}");
+	   						$image_check=true;
+	   					}
+	   				}
+	   				if($image_check==false){
+	   					echo $this->Html->image("/upload_img/no_image.png");
+	   				}
+	   			?></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   : '+value.product_name+'<br/>'
 	                   +'出品者　   : '+value.user.user_name+'<br/>'

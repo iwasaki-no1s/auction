@@ -19,7 +19,7 @@ class ProductsController extends AppController
 		// 終了した商品をsold=1にします
 		
 		$products = $this->Products->find()
-		->contain(['Users','Categories','Bids'])
+		->contain(['Users','Categories','Bids','Images'])
 		->where(['sold'=>0])
 		->all();
 
@@ -59,7 +59,7 @@ class ProductsController extends AppController
 	public function detail($product_id)
 	{
 		$product=$this->Products->get($product_id,[
-				'contain'=>['Users','Categories','Bids']
+				'contain'=>['Users','Categories','Bids','Images']
 		]);
 		//dump($product);
 		$this->set(compact('product'));
