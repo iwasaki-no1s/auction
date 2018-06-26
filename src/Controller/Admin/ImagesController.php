@@ -41,7 +41,7 @@ class ImagesController extends AppController
 			//dump($image);
 			//exit;
 			//main画像設定にされたときに他の画像のmain_image=0にする
-			if($main_image_count==1 || $image->main_image==1){
+			if($main_image_count==1 && $image->main_image==1){
 				$this->mainImageQuery($product_id);
 			}
 			if($this->Images->save($image)){
