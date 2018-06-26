@@ -256,7 +256,10 @@ class ProductsController extends AppController
 		}
 		//dump($product);
 		$category = $this->Products->Categories->find('list');
-		
+		$images=$this->Products->Images
+					->find('list')
+					->where(['product_id'=>$product_id]);
+		//dump($images);
 		if($product->user_id==$user_id){
 			if($product->sold==0){
 				if($this->request->is(['patch','post','put'])){
@@ -268,7 +271,7 @@ class ProductsController extends AppController
 					$this->Flash->error(__('商品情報の変更に失敗しました'));
 					$this->set(compact(['product','category']));
 				}
-				$this->set(compact('product','category'));
+				$this->set(compact('product','category','image'));
 			}else{
 				$this->Flash->error(__("落札された商品です，編集できません"));
 				return $this->redirect(['action'=>'detail',$product_id]);
