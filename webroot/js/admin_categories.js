@@ -52,7 +52,8 @@ function tableAttr(data){
 			var link = '<a href="/auction/admin/products/bid/'+value.id+'" class="btn btn-info">入札する</a>';
 		}else{
 		    var link = '<a href="/auction/admin/products/edit/'+value.id+'" class="btn btn-success">編集する</a>';
-		}		
+		}	
+		var url = value.image.image_name;
 		$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image"><img src="auction/upload_img/url"></td>'
 	                   +'<td class="description">'
