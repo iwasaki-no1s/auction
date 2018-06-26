@@ -78,6 +78,16 @@ body{
 	text-align:right;
 	padding-right:15px;
 }
+ul li{
+	list-style:none;
+	padding:10px;
+	overflow:hidden;
+}
+#bid_no4{
+	background-color:#E6E6E6;
+	border-style:dashed;
+	border-color:#E6E6E6;
+}
 #bid_no3{
 	background-color:#D8D8D8;
 }
@@ -86,4 +96,14 @@ body{
 }
 #bid_no1{
 	background-color:#F7FE2E;
+	border-style:solid;
+	border-color:#F7FE2E;
+	display:none;
+}
+
+.bid_user{
+	float:left;
+}
+.bid_price{
+	float:right;
 }

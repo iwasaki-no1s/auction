@@ -187,7 +187,7 @@ class ProductsController extends AppController
 				->contain(['Users'])
 				->where(['product_id'=>$product_id])
 				->order(['price'=>'DESC'])
-				->limit(3)
+				->limit(4)
 				->all()
 				;
 		//dump($bids);

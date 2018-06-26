@@ -54,7 +54,7 @@ function tableAttr(data){
 		    var link = '<a href="/auction/admin/products/edit/'+value.id+'" class="btn btn-success">編集する</a>';
 		}		
 		$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image">商品画像</td>'
+	                   +'<td class="image"><img src="auction/upload_img/url"></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   :  <a href="/auction/admin/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
 	                   +'出品者　   :  <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
