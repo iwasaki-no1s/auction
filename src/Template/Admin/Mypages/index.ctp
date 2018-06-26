@@ -18,6 +18,7 @@
 	<tr class="product-info">
 		<td class="image">
 			<?php
+<<<<<<< HEAD
 				$image_check=false;
 				foreach($my_exhibit->images as $image){
 					if($image->main_image==1){
@@ -26,14 +27,20 @@
 					}
 				}
 				if($image_check==false){
+=======
+				//dump($my_exhibit->images);
+				if($my_exhibit->images["image_url"]){
+					echo $this->Html->image("/upload_img/{$my_exhibit->images['image_url']}");
+				}else{
+>>>>>>> iwasaki
 					echo $this->Html->image("/upload_img/no_image.png");
 				}
 			?>
 		</td>
 		<td class="description">
 			<div>商品名　: <?=$this->Html->link($my_exhibit->product_name,["controller"=>"products","action"=>"detail",$my_exhibit->id]); ?></div>
-			<div>出品者　: <?=$this->Html->link($my_exhibit->user->user_name,["controller"=>"products","action"=>"user",$my_exhibit->user_id]); ?></div>
-			<div>カテゴリー: <?=$this->Html->link($my_exhibit->category->name,["controller"=>"categories","action"=>"index",$my_exhibit->category_id]); ?></div>
+			<div>出品者　: <?=$this->Html->link($my_exhibit->users["user_name"],["controller"=>"products","action"=>"user",$my_exhibit->user_id]); ?></div>
+			<div>カテゴリー: <?=$this->Html->link($my_exhibit->categories["name"],["controller"=>"categories","action"=>"index",$my_exhibit->category_id]); ?></div>
 			<div>入札数　：   <?= count($my_exhibit->bids); ?></div>
 			<div>終了時刻：  <?=h($my_exhibit->end_date->format("Y年m月d日H時i分")); ?></div>
 			<?php if($my_exhibit->sold==0){ ?>
@@ -50,23 +57,18 @@
 	<tr class="product-info">
 		<td class="image">
 			<?php
-				//dump($my_->bids_history);
-				$image_check=false;
-				foreach($my_bids_history->images as $image){
-					if($image->main_image==1){
-						echo $this->Html->image("/upload_img/{$image->image_url}");
-						$image_check=true;
-					}
-				}
-				if($image_check==false){
+				//dump($my_bids_history->images);
+				if($my_bids_history->images["image_url"]){
+					echo $this->Html->image("/upload_img/{$my_bids_history->images['image_url']}");
+				}else{
 					echo $this->Html->image("/upload_img/no_image.png");
 				}
 			?>
 		</td>
 		<td class="description">
 			<div>商品名　: <?=$this->Html->link($my_bids_history->product_name,["controller"=>"products","action"=>"detail",$my_bids_history->id]); ?></div>
-			<div>出品者　: <?=$this->Html->link($my_bids_history->user->user_name,["controller"=>"products","action"=>"user",$my_bids_history->user_id]); ?></div>
-			<div>カテゴリー: <?=$this->Html->link($my_bids_history->category->name,["controller"=>"categories","action"=>"index",$my_bids_history->category_id]); ?></div>
+			<div>出品者　: <?=$this->Html->link($my_bids_history->users["user_name"],["controller"=>"products","action"=>"user",$my_bids_history->user_id]); ?></div>
+			<div>カテゴリー: <?=$this->Html->link($my_bids_history->categories["name"],["controller"=>"categories","action"=>"index",$my_bids_history->category_id]); ?></div>
 			<div>入札数　：   <?= count($my_bids_history->bids); ?></div>
 			<div>終了時刻：  <?=h($my_bids_history->end_date->format("Y年m月d日H時i分")); ?></div>
 			<?php if($my_bids_history->sold==0){ ?>
@@ -84,22 +86,17 @@
 		<td class="image">
 			<?php
 				//dump($my_favorite->images);
-				$image_check=false;
-				foreach($my_favorite->images as $image){
-					if($image->main_image==1){
-						echo $this->Html->image("/upload_img/{$image->image_url}");
-						$image_check=true;
-					}
-				}
-				if($image_check==false){
+				if($my_favorite->images["image_url"]){
+					echo $this->Html->image("/upload_img/{$my_favorite->images['image_url']}");
+				}else{
 					echo $this->Html->image("/upload_img/no_image.png");
 				}
 			?>
 		</td>
 		<td class="description">
 			<div>商品名　: <?=$this->Html->link($my_favorite->product_name,["controller"=>"products","action"=>"detail",$my_favorite->id]); ?></div>
-			<div>出品者　: <?=$this->Html->link($my_favorite->user->user_name,["controller"=>"products","action"=>"user",$my_favorite->user_id]); ?></div>
-			<div>カテゴリー: <?=$this->Html->link($my_favorite->category->name,["controller"=>"categories","action"=>"index",$my_favorite->category_id]); ?></div>
+			<div>出品者　: <?=$this->Html->link($my_favorite->users["user_name"],["controller"=>"products","action"=>"user",$my_favorite->user_id]); ?></div>
+			<div>カテゴリー: <?=$this->Html->link($my_favorite->categories["name"],["controller"=>"categories","action"=>"index",$my_favorite->category_id]); ?></div>
 			<div>入札数　：   <?= count($my_favorite->bids); ?></div>
 			<div>終了時刻：  <?=h($my_favorite->end_date->format("Y年m月d日H時i分")); ?></div>
 			<?php if($my_favorite->sold==1){ ?>

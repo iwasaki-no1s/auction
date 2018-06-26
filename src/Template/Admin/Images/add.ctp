@@ -16,7 +16,8 @@
 	<?=$this->Form->checkbox('main_image',['checked'=>1]); ?>メイン画像に設定する</br>
 <?php } ?>	
 <?php
-	echo $this->Form->button("編集を確定する");
+	echo $this->Form->button("画像を登録する");
 	echo $this->Form->end();
+	echo $this->Html->link("編集を終了する",["controller"=>"products","action"=>"detail",$product->id],["class"=>["btn btn-success"]]);
 	echo $this->Html->link("出品を取り消す",["controller"=>"products","action"=>"delete",$product->id],["class"=>["btn btn-danger"]]);
 ?>
