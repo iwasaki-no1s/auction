@@ -49,7 +49,14 @@ class ProductsController extends AppController
 		);
 		$products=$this->Products
 		->find('all',array('conditions'=>$conditions))
-		->contain(['Users','Categories'])
+		->contain(['Users','Categories','Bids'])
+		->select([
+				"id","product_name","categories.name","users.user_name","sold","end_date",
+				"images.image_url","images.main_image"
+		])
+		->leftJoinWith('Images',function($q){
+			return $q->where(['Images.main_image'=>1]);
+		})
 		->all();
 		//dump($products);
 	

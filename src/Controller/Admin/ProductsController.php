@@ -150,6 +150,7 @@ class ProductsController extends AppController
 	
 	public function search()
 	{
+		$user_id=$this->MyAuth->user('id');
 		$search_word=$this->request->data;
 		//dump($search_word);
 		$key_word=$search_word["search_word"];
@@ -161,11 +162,18 @@ class ProductsController extends AppController
 		);
 		$products=$this->Products
 						->find('all',array('conditions'=>$conditions))
-						->contain(['Users','Categories'])
+						->contain(['Users','Categories','Bids'])
+						->select([
+								"id","product_name","categories.name","users.user_name","users.id","sold","end_date",
+								"images.image_url","images.main_image"
+						])
+						->leftJoinWith('Images',function($q){
+							return $q->where(['Images.main_image'=>1]);
+						})
 						->all();
 		//dump($products);
-		
-		$this->set(compact('key_word','products'));
+		//dump($user_id);
+		$this->set(compact('key_word','products','user_id'));
 	}
 	
 	public function detail($product_id)

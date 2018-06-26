@@ -4,14 +4,24 @@
 <div id="detail-box">
 	<div id="detail-image">
 		<?php
-			$image_check=false;
+			//dump($product->images[0]);
+			$size=count($product->images);
+/*			
 			foreach($product->images as $image){
 				if($image->main_image==1){
 					echo $this->Html->image("/upload_img/{$image->image_url}");
-					$image_check=true;
 				}
 			}
-			if($image_check==false){
+*/
+			if($product->images){
+				$i=0;
+				if($i==$size){
+					$i=0;
+				}else if($i==-1){
+					$i=$size-1;
+				}
+				echo $this->Html->image("/upload_img/{$product->images[$i]->image_url}");
+			}else{
 				echo $this->Html->image("/upload_img/no_image.png");
 			}
 		?>
