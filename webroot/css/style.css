@@ -56,10 +56,6 @@ body{
 	overflow:hidden;
 }
 #detail-image{
-	width:600px;
-	height:400px;
-	text-align:center;
-	background-color:#80ffff;
 	float:left;
 }
 #detail-description{
