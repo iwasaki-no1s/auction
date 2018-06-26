@@ -52,7 +52,7 @@ class BidsController extends AppController
 			]);
 		}
 		
-		if($product->max_price　<= $bid->price){
+		if(($product->max_price) <= ($bid->price)){
 			$this->Bids->save($bid);
 			$this->Flash->success(__('即決価格です、落札しました'));
 			return $this->redirect([
@@ -64,7 +64,7 @@ class BidsController extends AppController
 	
 		if($this->Bids->save($bid)){
 			$this->Flash->success(__('入札しました'));
-			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+			return $this->redirect(['controller'=>'products','action'=>'detail',$bid->product_id]);
 		}
 		$this->Flash->error(__('入札に失敗しました'));
 		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
