@@ -49,11 +49,8 @@ class ImagesController extends AppController
 			}else{
 				$this->Flash->error(__('画像の登録に失敗しました'));
 			}
+			return $this->redirect(['controller'=>'products','action'=>'edit',$product_id]);
 		}
-		//連続して登録するための初期化
-		$image=$this->Images->newEntity();
-		//$image->image_name="";
-		$main_image_count=$this->mainImageCount($product_id);
 		$this->set(compact('image','product','main_image_count'));
 	}
 	

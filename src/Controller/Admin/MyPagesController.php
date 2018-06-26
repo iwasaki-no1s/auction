@@ -41,11 +41,25 @@ class MyPagesController extends AppController
 						})
 						*/
 						//	->andwhere(['Images.main_image'=>1])
+						->select([
+										"id","product_name","categories.name","users.user_name","sold","end_date",
+										"images.image_url","images.main_image"
+								])
+						->leftJoinWith('Images',function($q){
+							return $q->where(['Images.main_image'=>1]);
+						})
 						->all();
 		//dump($my_exhibits);
 		
 		$my_bids_histories=$this->Products->find()
 		->contain(['Categories','Users','Bids','Images'])
+		->select([
+				"id","product_name","categories.name","users.user_name","sold","end_date",
+				"images.image_url","images.main_image"
+		])
+		->leftJoinWith('Images',function($q){
+			return $q->where(['Images.main_image'=>1]);
+		})
 		->innerJoinWith('Bids', function($q) use ($user_id) {
 			return $q->where(['Bids.user_id'=>$user_id]);
 			})
@@ -66,6 +80,13 @@ class MyPagesController extends AppController
 		
 		$my_favorites=$this->Products->find()
 		->contain(['Categories','Users','Bids','Favorites','Images'])
+		->select([
+				"id","product_name","categories.name","users.user_name","sold","end_date",
+				"images.image_url","images.main_image"
+		])
+		->leftJoinWith('Images',function($q){
+			return $q->where(['Images.main_image'=>1]);
+		})
 		->innerJoinWith('Favorites', function($q) use ($user_id) {
 			return $q->where(['Favorites.user_id'=>$user_id]);
 		})
