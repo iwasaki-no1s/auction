@@ -19,6 +19,7 @@
 		<td class="image">
 			<?php
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$image_check=false;
 				foreach($my_exhibit->images as $image){
 					if($image->main_image==1){
@@ -28,10 +29,15 @@
 				}
 				if($image_check==false){
 =======
+=======
+>>>>>>> iwasaki
 				//dump($my_exhibit->images);
 				if($my_exhibit->images["image_url"]){
 					echo $this->Html->image("/upload_img/{$my_exhibit->images['image_url']}");
 				}else{
+<<<<<<< HEAD
+>>>>>>> iwasaki
+=======
 >>>>>>> iwasaki
 					echo $this->Html->image("/upload_img/no_image.png");
 				}
