@@ -22,10 +22,9 @@ echo $this->Form->input('category_id',[
 echo $this->Form->button("編集を確定する");
 echo $this->Form->end();
 
-echo $this->Form->create($images);
-echo $this->Form->input('image_id',[
+echo $this->Form->create("",['url'=>['controller'=>'images','action'=>'change',$product->id]]);
+echo $this->Form->input('id',[
 	'options'=>$image,
-//	'default'=>,
 	'label'=>"main画像",
 	]);
 echo $this->Form->button("main画像を変更する");

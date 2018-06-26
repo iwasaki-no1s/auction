@@ -120,6 +120,24 @@ class ImagesController extends AppController
 		return $uploadFile;
 	}
 	
+	public function change($product_id)
+	{
+		if($this->request->is(['patch','post','put'])){
+			//dump($this->request->data["id"]);
+			$this->mainImageQuery($product_id);
+			$this->Images
+				->query()
+				->update()
+				->set(['main_image'=>1])
+				->where(['id'=>$this->request->data["id"]])
+				->execute();
+			$this->Flash->success(__('main画像を変更しました'));
+			return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
+		}
+		$this->Flash->error(__('main画像の変更に失敗しました'));
+		return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+	}
+	
 	private function mainImageQuery($product_id)
 	{
 		$product = $this->Images
