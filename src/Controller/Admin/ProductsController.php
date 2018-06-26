@@ -259,7 +259,7 @@ class ProductsController extends AppController
 		$image=$this->Products->Images
 					->find('list')
 					->where(['product_id'=>$product_id]);
-		dump($image);
+		//dump($image);
 		if($product->user_id==$user_id){
 			if($product->sold==0){
 				if($this->request->is(['patch','post','put'])){
