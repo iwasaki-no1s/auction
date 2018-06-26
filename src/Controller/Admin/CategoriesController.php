@@ -24,7 +24,7 @@ class CategoriesController extends AppController
 				
 			$products = $this->Categories->Products
 				->find()
-				->contain(['Users','Categories','Bids'])
+				->contain(['Users','Categories','Bids','Images'])
 				->where(['category_id'=>$category_id])
 				->andWhere(['sold'=>0])
 				->all();

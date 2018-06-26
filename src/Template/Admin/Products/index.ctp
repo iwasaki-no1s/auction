@@ -2,7 +2,20 @@
 <table>
 <?php foreach($products as $product){ ?>
 	<tr class="product-info">
-		<td class="image">画像</td>
+		<td class="image">
+			<?php
+				$image_check=false;
+				foreach($product->images as $image){
+					if($image->main_image==1){
+						echo $this->Html->image("/upload_img/{$image->image_url}");
+						$image_check=true;
+					}
+				}
+				if($image_check==false){
+					echo $this->Html->image("/upload_img/no_image.png");
+				}
+			?>
+		</td>
 		<td class="description">
 			<div>商品名　  : <?=$this->Html->link($product->product_name,["controller"=>"products","action"=>"detail",$product->id]); ?></div>
 			<div>出品者　  : <?=$this->Html->link($product->user->user_name,["controller"=>"products","action"=>"user",$product->user_id]); ?></div>

@@ -19,7 +19,7 @@ class ProductsController extends AppController
 		// 終了した商品をsold=1にします
 		$user_id=$this->MyAuth->user('id');
 		$products = $this->Products->find()
-			->contain(['Users','Categories','Bids'])
+			->contain(['Users','Categories','Bids','Images'])
 			->where(['sold'=>0])
 			->all();
 		$this->set(compact('user_id','products'));
@@ -173,7 +173,7 @@ class ProductsController extends AppController
 		$user_id=$this->MyAuth->user('id');
 		try{
 			$product=$this->Products->get($product_id,[
-								'contain'=>['Users','Categories','Bids']
+					'contain'=>['Users','Categories','Bids','Images']
 			]);
 		}catch(\Exception $e){
 			$this->Flash->error(__('存在しない商品です'));
