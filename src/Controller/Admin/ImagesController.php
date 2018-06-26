@@ -22,7 +22,12 @@ class ImagesController extends AppController
 		}
 		
 		$image=$this->Images->newEntity();
-		
+		$main_image_count=$this->Images
+		->find()
+		->where(['product_id'=>$product_id])
+		->andwhere(['main_image'=>1])
+		->count();
+		//dump($main_image_count);
 		if($this->request->is('post')){
 			//dump($this->request->data['file_name']);
 			//move_upload_file
@@ -37,16 +42,23 @@ class ImagesController extends AppController
 			}
 			$image->product_id=$product->id;
 			$image->image_url=$temp['file'];
+			$image=$this->Images->patchEntity($image,$this->request->data);
 			//dump($image);
 			//exit;
+			//main画像設定にされたときに他の画像のmain_image=0にする
+			if($main_image_count==1 || $image->main_image==1){
+				$this->mainImageQuery($product_id);
+			}
 			if($this->Images->save($image)){
 				$this->Flash->success(__('画像を登録しました'));
 			}else{
 				$this->Flash->error(__('画像の登録に失敗しました'));
 			}
 		}
+		//連続して登録するための初期化
 		$image=$this->Images->newEntity();
-		$this->set(compact('image','product'));
+		//$image->image_name="";
+		$this->set(compact('image','product','main_image_count'));
 	}
 	
 	private function file_upload ($file = null,$dir = null, $limitFileSize = 1024 * 1024){
@@ -113,6 +125,16 @@ class ImagesController extends AppController
 			throw $e;
 		}
 		return $uploadFile;
+	}
+	
+	private function mainImageQuery($product_id)
+	{
+		$product = $this->Images
+		->query()
+		->update()
+		->set(['main_image' => 0])
+		->where(['product_id' => $product_id])
+		->execute();
 	}
 	
 }

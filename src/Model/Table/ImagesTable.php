@@ -14,6 +14,7 @@ class ImagesTable extends Table
 		
 		$this->table('images');
 		$this->primaryKey('id');
+		$this->displayField('image_mane');
 		$this->addBehavior('Timestamp');
 		$this->belongsTo('Products',[
 				'foreignKey'=>'product_id'
