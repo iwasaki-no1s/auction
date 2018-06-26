@@ -13,6 +13,7 @@ class ImagesController extends AppController
 {
 	public function add($product_id=null)
 	{
+		$user_id=$this->MyAuth->user('id');
 		try{
 			$product=$this->Images->Products->get($product_id);
 		}catch(\Exception $e){
@@ -22,11 +23,11 @@ class ImagesController extends AppController
 		if($product->user_id==$user_id){
 			if($product->sold==1){
 				$this->Flash->error(__("終了した商品の編集はできません"));
-				return $this->redirect(['action'=>'detail',$product_id]);
+				return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
 			}
 		}else{
 			$this->Flash->error(__("編集権限がありません"));
-			return $this->redirect(['controller'=>'my-pages','action'=>'index']);
+			return $this->redirect(['controller'=>'products','action'=>'detail',$product_id]);
 		}
 		$image=$this->Images->newEntity();
 		$main_image_count=$this->mainImageCount($product_id);
