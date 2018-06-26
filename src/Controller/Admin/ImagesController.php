@@ -22,12 +22,7 @@ class ImagesController extends AppController
 		}
 		
 		$image=$this->Images->newEntity();
-		$main_image_count=$this->Images
-		->find()
-		->where(['product_id'=>$product_id])
-		->andwhere(['main_image'=>1])
-		->count();
-		//dump($main_image_count);
+		$main_image_count=$this->mainImageCount($product_id);
 		if($this->request->is('post')){
 			//dump($this->request->data['file_name']);
 			//move_upload_file
@@ -58,6 +53,7 @@ class ImagesController extends AppController
 		//連続して登録するための初期化
 		$image=$this->Images->newEntity();
 		//$image->image_name="";
+		$main_image_count=$this->mainImageCount($product_id);
 		$this->set(compact('image','product','main_image_count'));
 	}
 	
@@ -135,6 +131,16 @@ class ImagesController extends AppController
 		->set(['main_image' => 0])
 		->where(['product_id' => $product_id])
 		->execute();
+	}
+	
+	private function mainImageCount($product_id)
+	{
+		$c=$this->Images
+			->find()
+			->where(['product_id'=>$product_id])
+			->andwhere(['main_image'=>1])
+			->count();
+		return $c;
 	}
 	
 }
