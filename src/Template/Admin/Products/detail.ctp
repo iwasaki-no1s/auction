@@ -51,7 +51,7 @@
 				$i=1;
 				echo "<ul>";
 				foreach($bids as $bid){
-					echo "<li id='bid_no$i'>";
+					echo "<li id='bid_no$i' class='bid_his'>";
 					echo "<span class='bid_user'>".$bid->user->user_name."</span>";
 					echo "<span class='bid_price'>".$bid->price."</span></li>";
 					$i++;
