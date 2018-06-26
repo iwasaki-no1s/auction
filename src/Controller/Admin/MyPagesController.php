@@ -33,13 +33,19 @@ class MyPagesController extends AppController
 		];
 		
 		$my_exhibits=$this->Products->find()
-						->contain(['Categories','Users','Bids'])
+						->contain(['Categories','Users','Bids','Images'])
 						->where(['Products.user_id'=>$user_id])
+						/*
+						->matching('Images', function($q) {
+							return $q->where(['Images.main_image'=>1]);
+						})
+						*/
+						//	->andwhere(['Images.main_image'=>1])
 						->all();
 		//dump($my_exhibits);
 		
 		$my_bids_histories=$this->Products->find()
-		->contain(['Categories','Users','Bids'])
+		->contain(['Categories','Users','Bids','Images'])
 		->innerJoinWith('Bids', function($q) use ($user_id) {
 			return $q->where(['Bids.user_id'=>$user_id]);
 			})
@@ -59,7 +65,7 @@ class MyPagesController extends AppController
 		*/
 		
 		$my_favorites=$this->Products->find()
-		->contain(['Categories','Users','Bids','Favorites'])
+		->contain(['Categories','Users','Bids','Favorites','Images'])
 		->innerJoinWith('Favorites', function($q) use ($user_id) {
 			return $q->where(['Favorites.user_id'=>$user_id]);
 		})

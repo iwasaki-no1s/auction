@@ -30,7 +30,7 @@ class ProductsTable extends Table
 				'joinType'=>'INNER'
 		]);
 		$this->hasMany('Images',[
-				'foreignKey'=>'product_id'
+				'foreignKey'=>'product_id',
 		]);
 	}
 	

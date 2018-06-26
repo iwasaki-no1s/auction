@@ -16,7 +16,21 @@
 <table name="my-exhibit" class="active">
 	<?php foreach($my_exhibits as $my_exhibit){ ?>
 	<tr class="product-info">
-		<td class="image">画像</td>
+		<td class="image">
+			<?php
+				//dump($my_exhibit->images);
+				$image_check=false;
+				foreach($my_exhibit->images as $image){
+					if($image->main_image==1){
+						echo $this->Html->image("/upload_img/{$image->image_url}");
+						$image_check=true;
+					}
+				}
+				if($image_check==false){
+					echo $this->Html->image("/upload_img/no_image.png");
+				}
+			?>
+		</td>
 		<td class="description">
 			<div>商品名　: <?=$this->Html->link($my_exhibit->product_name,["controller"=>"products","action"=>"detail",$my_exhibit->id]); ?></div>
 			<div>出品者　: <?=$this->Html->link($my_exhibit->user->user_name,["controller"=>"products","action"=>"user",$my_exhibit->user_id]); ?></div>
@@ -35,7 +49,21 @@
 <table name="my-bids-history" class="passive">
 	<?php foreach($my_bids_histories as $my_bids_history){ ?>
 	<tr class="product-info">
-		<td class="image">画像</td>
+		<td class="image">
+			<?php
+				//dump($my_->bids_history);
+				$image_check=false;
+				foreach($my_bids_history->images as $image){
+					if($image->main_image==1){
+						echo $this->Html->image("/upload_img/{$image->image_url}");
+						$image_check=true;
+					}
+				}
+				if($image_check==false){
+					echo $this->Html->image("/upload_img/no_image.png");
+				}
+			?>
+		</td>
 		<td class="description">
 			<div>商品名　: <?=$this->Html->link($my_bids_history->product_name,["controller"=>"products","action"=>"detail",$my_bids_history->id]); ?></div>
 			<div>出品者　: <?=$this->Html->link($my_bids_history->user->user_name,["controller"=>"products","action"=>"user",$my_bids_history->user_id]); ?></div>
@@ -54,7 +82,21 @@
 <table name="my-favorites" class="passive">
 	<?php foreach($my_favorites as $my_favorite){ ?>
 	<tr class="product-info">
-		<td class="image">がぞー</td>
+		<td class="image">
+			<?php
+				//dump($my_favorite->images);
+				$image_check=false;
+				foreach($my_favorite->images as $image){
+					if($image->main_image==1){
+						echo $this->Html->image("/upload_img/{$image->image_url}");
+						$image_check=true;
+					}
+				}
+				if($image_check==false){
+					echo $this->Html->image("/upload_img/no_image.png");
+				}
+			?>
+		</td>
 		<td class="description">
 			<div>商品名　: <?=$this->Html->link($my_favorite->product_name,["controller"=>"products","action"=>"detail",$my_favorite->id]); ?></div>
 			<div>出品者　: <?=$this->Html->link($my_favorite->user->user_name,["controller"=>"products","action"=>"user",$my_favorite->user_id]); ?></div>
