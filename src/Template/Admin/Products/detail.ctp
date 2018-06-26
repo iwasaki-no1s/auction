@@ -1,4 +1,3 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <?php $this->prepend('script',$this->Html->script('admin_bids_history'));?>
 <h1 class="page-header"><?= $product->product_name ?></h1>
 <div id="detail-box">
@@ -48,7 +47,17 @@
 		<?php } ?>
 		<br/><br/>
 		<div style="margin-left : 20px">
-			<div class="bids-history"></div>
+			<?php 
+				$i=1;
+				echo "<ul>";
+				foreach($bids as $bid){
+					echo "<li id='bid_no$i'>";
+					echo "<span class='bid_user'>".$bid->user->user_name."</span>";
+					echo "<span class='bid_price'>".$bid->price."</span></li>";
+					$i++;
+				}
+				echo "</ul>";
+			?>
 		</div>
 	</div>
 </div>
