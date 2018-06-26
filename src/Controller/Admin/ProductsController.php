@@ -188,7 +188,8 @@ class ProductsController extends AppController
 				->where(['product_id'=>$product_id])
 				->order(['price'=>'DESC'])
 				->limit(3)
-				->all();
+				->all()
+				;
 		//dump($bids);
 		$this->set(compact('user_id','product','favorite_check','bids'));
 	}

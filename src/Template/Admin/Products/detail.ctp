@@ -21,11 +21,20 @@
 		<?php }else{ ?>
 			<?=$this->Html->link("お気に入りを削除する",["controller"=>"favorites","action"=>"delete",$product->id],["class"=>["btn btn-warning"]]); ?>
 		<?php } ?>
-		</br>
-		<?php foreach($bids as $bid){ ?>
-			<?php echo $bid->user->user_name ?>
-			<?php echo $bid->price ?>
-			</br>
-		<?php } ?>
+		<br/><br/>
+		<div style="margin-left : 20px">
+			<p>入札履歴</p>
+			<table id="bids_table">
+			<tr><th>入札者</th><th style="text-align:right">入札額（￥）</th></tr>
+			<?php 
+			$i=1;
+				foreach($bids as $bid){
+					echo "<tr id='bid_no$i'><td>".$bid->user->user_name."</td>";
+					echo "<td id='bid_price'>".$bid->price."</td></tr>";
+					$i++;
+				}
+			?>
+			</table>
+		</div>
 	</div>
 </div>
