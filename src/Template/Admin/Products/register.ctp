@@ -1,3 +1,4 @@
+<?php $this->prepend('script',$this->Html->script('admin_products'));?>
 <h1 class="page-header">出品</h1>
 
 <?php
@@ -13,11 +14,13 @@ echo $this->Form->input('start_price',[
 	'default'=>0,
 	'min'=>0,
 	'label'=>"スタート価格",
+	'id'=>"start",
 	]);
 echo $this->Form->input('max_price',[
 	'default'=>0,
 	'min'=>0,
 	'label'=>"即決価格",
+	'id'=>"max",
 	]);
 echo $this->Form->input('end_date',[
 	'type' => 'datetime',
@@ -30,10 +33,11 @@ echo $this->Form->input('end_date',[
 echo $this->Form->input('category_id',[
 	'options'=>$category,
 	'label'=>"カテゴリー",
-	'empty'=>'選択してください',
+	'empty'=>"選択してください",
 	]);
-echo $this->Form->hidden('user_id',['default'=>$id]);
 echo $this->Form->hidden('sold',['default'=>0]);
-echo $this->Form->button("商品画像登録へ");
+echo $this->Form->button("商品画像登録へ",[
+	'id'=>"register_button", 
+ ]);
 echo $this->Form->end();
 ?>

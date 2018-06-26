@@ -2,15 +2,27 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\I18n\Time;
+use Cake\Datasource\ConnectionManager;
 
 class ProductsController extends AppController
 {	
 	public function index()
 	{
+		Time::setJsonEncodeFormat("Y-m-d H:i:s");
+		$now = Time::now();
+		$query = $this->Products->query();
+		$query->update()
+		->set(['sold' => 1])
+		->where(['end_date <=' => $now->format("Y-m-d H:i:s")])
+		->execute();
+		// 終了した商品をsold=1にします
+		
 		$products = $this->Products->find()
-		->contain(['Users','Categories','Bids'])
+		->contain(['Users','Categories','Bids','Images'])
 		->where(['sold'=>0])
 		->all();
+
 		$this->set(compact('products'));
 	}
 	
@@ -37,10 +49,26 @@ class ProductsController extends AppController
 		);
 		$products=$this->Products
 		->find('all',array('conditions'=>$conditions))
-		->contain(['Users','Categories'])
+		->contain(['Users','Categories','Bids'])
+		->select([
+				"id","product_name","categories.name","users.user_name","sold","end_date",
+				"images.image_url","images.main_image"
+		])
+		->leftJoinWith('Images',function($q){
+			return $q->where(['Images.main_image'=>1]);
+		})
 		->all();
 		//dump($products);
 	
 		$this->set(compact('key_word','products'));
+	}
+	
+	public function detail($product_id)
+	{
+		$product=$this->Products->get($product_id,[
+				'contain'=>['Users','Categories','Bids','Images']
+		]);
+		//dump($product);
+		$this->set(compact('product'));
 	}
 }

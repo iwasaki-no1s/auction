@@ -25,38 +25,46 @@ class BidsController extends AppController
 			$this->Flash->error ( __ ( 'その金額では入札できません' ) );
 			return $this->redirect ( [
 					'controller' => 'products',
-					'action' => 'bid',$bid->product_id
+					'action' => 'bid',
+					$bid->product_id
 			]);
 		}
 		
-		$product = $this->Bids->Products->find()->where(['id'=>$product_id])->first();
+		$product = $this->Bids->Products
+			->find()
+			->where(['id'=>$product_id])
+			->first();
 		$now = Time::now();
 		if($now>=$product->end_date){
 			$this->Flash->error(__('すでに終了した商品です'));
 			return $this->redirect([
 					'controller' => 'products',
-					'action' => 'index'
+					'action' => 'detail',
+					$product_id
 			]);
 		}
 		if($product->sold==1){
 			$this->Flash->error(__('申し訳ございません、入札した商品は現在売り切れです'));
 			return $this->redirect([
 					'controller'=>'products',
-					'action'=>'index'
+					'action'=>'detail',
+					$product_id
 			]);
 		}
-		if($product->end_price<=$bid->price){
-			$this->Flash->success(__('即決価格です、落札しました'));
+		
+		if(($product->max_price) <= ($bid->price)){
 			$this->Bids->save($bid);
+			$this->Flash->success(__('即決価格です、落札しました'));
 			return $this->redirect([
 					'controller'=>'products',
-					'action'=>'soldout',$bid->product_id
+					'action'=>'soldout',
+					$bid->product_id
 			]);
 		}
 	
 		if($this->Bids->save($bid)){
 			$this->Flash->success(__('入札しました'));
-			return $this->redirect(['controller'=>'MyPages','action'=>'index']);
+			return $this->redirect(['controller'=>'products','action'=>'detail',$bid->product_id]);
 		}
 		$this->Flash->error(__('入札に失敗しました'));
 		return $this->redirect(['controller'=>'MyPages','action'=>'index']);

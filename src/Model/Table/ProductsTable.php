@@ -30,7 +30,7 @@ class ProductsTable extends Table
 				'joinType'=>'INNER'
 		]);
 		$this->hasMany('Images',[
-				'foreignKey'=>'product_id'
+				'foreignKey'=>'product_id',
 		]);
 	}
 	
@@ -44,6 +44,10 @@ class ProductsTable extends Table
 			->requirePresence('product_name','create')
 			->notEmpty('product_name');
 		
+		$validator
+			->integer('category_id')
+			->notEmpty('category_id');
+	
 		return $validator;
 	}
 }
