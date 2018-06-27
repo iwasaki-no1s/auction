@@ -1,4 +1,5 @@
 <h1 class="page-header">「<?= $key_word ?>」の検索結果</h1>
+<h3>検索結果：<?php echo count($products); ?>件</h3>
 <table>
 <?php foreach($products as $product){ ?>
 	<tr class="product-info">

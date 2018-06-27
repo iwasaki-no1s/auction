@@ -62,7 +62,7 @@ function tableAttr(products){
 		}// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
 		
 		$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
+	                   +'<td class="image" id="icon"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   :  <a href="/auction/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
 	                   +'出品者　   :  <a href="/auction/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
@@ -100,7 +100,7 @@ function tableAttrOnLoad(products){
 		}// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
 		
 		$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
+	                   +'<td class="image" id="icon"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   :  <a href="/auction/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
 	                   +'出品者　   :  <a href="/auction/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
