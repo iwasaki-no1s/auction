@@ -52,11 +52,22 @@ function tableAttr(data){
 			var link = '<a href="/auction/admin/products/bid/'+value.id+'" class="btn btn-info">入札する</a>';
 		}else{
 		    var link = '<a href="/auction/admin/products/edit/'+value.id+'" class="btn btn-success">編集する</a>';
-		}	
-		var image_url = value.images.image_url;
-		console.log(image_url)
+		}
+		
+		var image_url = "";
+		if(value.images.length == 0){
+			image_url = "no_image.png";
+		}else{
+			$.each(value.images, function(key, img){
+				image_url = img.image_url;
+				if(img.main_image == 1){
+					image_url = img.image_url;
+				}
+			});
+		}
+		// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
 		$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image"><img src="auction/upload_img/'+image_url+'.jpg"></td>'
+	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   :  <a href="/auction/admin/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
 	                   +'出品者　   :  <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
@@ -86,8 +97,20 @@ function tableAttrOnLoad(data){
 		}else{
 		    var link = '<a href="/auction/admin/products/edit/'+value.id+'" class="btn btn-success">編集する</a>';
 		}
+	
+	    var image_url = "";
+		if(value.images.length == 0){
+			image_url = "no_image.png";
+		}else{
+			$.each(value.images, function(key, img){
+				image_url = img.image_url;
+				if(img.main_image == 1){
+					image_url = img.image_url;
+				}
+			});
+		}
 	$('#result table').append('<tr class="product-info">'
-	                   +'<td class="image">商品画像</td>'
+	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
 	                   +'商品名　   : <a href="/auction/admin/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
 	                   +'出品者　   : <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
