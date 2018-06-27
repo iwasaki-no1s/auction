@@ -34,10 +34,12 @@ body{
 }
 
 .image{
-	width:400px;
-	height:300px;
+	width:280px;
+	height:210px;
 }
-
+.image img{
+	width:100%;
+}
 .description{
 	width:550px;
 	padding:10px;
