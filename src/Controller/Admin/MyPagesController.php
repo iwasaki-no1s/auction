@@ -55,7 +55,7 @@ class MyPagesController extends AppController
 		->contain(['Categories','Users','Bids','Images'])
 		->select([
 				"id","product_name","categories.name","users.user_name","sold","end_date",
-				"images.image_url","images.main_image"
+				"images.image_url","images.main_image","user_id","category_id"
 		])
 		->leftJoinWith('Images',function($q){
 			return $q->where(['Images.main_image'=>1]);
@@ -82,7 +82,7 @@ class MyPagesController extends AppController
 		->contain(['Categories','Users','Bids','Favorites','Images'])
 		->select([
 				"id","product_name","categories.name","users.user_name","sold","end_date",
-				"images.image_url","images.main_image"
+				"images.image_url","images.main_image","user_id","category_id"
 		])
 		->leftJoinWith('Images',function($q){
 			return $q->where(['Images.main_image'=>1]);
