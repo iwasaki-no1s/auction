@@ -50,7 +50,6 @@ function tableAttr(data){
 	}
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
-		var end_date = new Date(value.end_date);
 		var image_url = "";
 		if(value.images.length == 0){
 			image_url = "no_image.png";
@@ -61,8 +60,8 @@ function tableAttr(data){
 					image_url = img.image_url;
 				}
 			});
-		}
-		// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
+		}// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
+		
 		$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
@@ -80,10 +79,13 @@ function tableAttr(data){
 	});
 	$("#result").after("</table>")
 }
-function tableAttrOnLoad(products){
+function tableAttrOnLoad(data){
 	$('#result').text('');
+	var products = data.products;
+	var login_user_id = data.login_user_id;
 	if(products.length==0){
 		$('#result table').remove();
+		$('#result').text('選択されたカテゴリーには商品がありません');
 		return;
 	}
 	$('#result').append('<table>');
@@ -98,19 +100,24 @@ function tableAttrOnLoad(products){
 					image_url = img.image_url;
 				}
 			});
-		}
-	$('#result table').append('<tr class="product-info">'
+		}// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
+		
+		$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
-	                   +'商品名　   : '+value.product_name+'<br/>'
-	                   +'出品者　   : '+value.user.user_name+'<br/>'
+	                   +'商品名　   :  <a href="/auction/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
+	                   +'出品者　   :  <a href="/auction/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
-	                   +'終了時刻  : '+value.end_date+'<br/>'
-	                   +'<a href="/auction/users/register/'+value.id+'" class="btn btn-primary">新規登録して入札</a><br/>'
-	                   +'<a href="/auction/users/login/'+value.id+'" class="btn btn-info">ログインして入札</a>'
-	                   +'</td></tr>');
+	                   +'終了時刻  : '+end_date.getFullYear()+'年'
+	                                + end_date.getMonth()+1 +'月'
+	                                + end_date.getDate() + "日　"
+					   	            + end_date.getHours() + "時"
+						            + end_date.getMinutes() + "分"+'<br/>'
+						            +'<a href="/auction/users/register/'+value.id+'" class="btn btn-primary">新規登録して入札</a><br/>'
+					                +'<a href="/auction/users/login/'+value.id+'" class="btn btn-info">ログインして入札</a>'
+						            +'</td></tr>');
 	});
-	$("#result").append("</table>")
+	$("#result").after("</table>")
 }
 
 function defaultCategorySearchError(result){
