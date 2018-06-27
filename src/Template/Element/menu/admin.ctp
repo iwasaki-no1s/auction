@@ -1,4 +1,5 @@
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<span id="icon"><img src="http://localhost/auction/webroot/upload_img/casper.png"></span>
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<?=$this->Html->link("コロリちゃん",["controller"=>"MyPages","action"=>"index"],["class"=>"navbar-brand"]); ?>
