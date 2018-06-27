@@ -73,7 +73,7 @@ function tableAttr(data){
 	                   +'出品者　   :  <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+end_date.getFullYear()+'年'
-	                                + end_date.getMonth()+1 +'月'
+	                                + (end_date.getMonth()+1) +'月'
 	                                + end_date.getDate() + "日　"
 					   	            + end_date.getHours() + "時"
 						            + end_date.getMinutes() + "分"+'<br/>'
@@ -92,13 +92,14 @@ function tableAttrOnLoad(data){
 	}
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
-	    if(login_user_id !== value.user.id){
+		var end_date = new Date(value.end_date);
+		if(login_user_id !== value.user.id){
 			var link = '<a href="/auction/admin/products/bid/'+value.id+'" class="btn btn-info">入札する</a>';
 		}else{
 		    var link = '<a href="/auction/admin/products/edit/'+value.id+'" class="btn btn-success">編集する</a>';
 		}
-	
-	    var image_url = "";
+		
+		var image_url = "";
 		if(value.images.length == 0){
 			image_url = "no_image.png";
 		}else{
@@ -109,17 +110,22 @@ function tableAttrOnLoad(data){
 				}
 			});
 		}
-	$('#result table').append('<tr class="product-info">'
+		// 空だったらno_image.png　あればURLに画像を設定、メインがあればそれを設定
+		$('#result table').append('<tr class="product-info">'
 	                   +'<td class="image"><img src="http://localhost/auction/webroot/upload_img/'+image_url+'"></td>'
 	                   +'<td class="description">'
-	                   +'商品名　   : <a href="/auction/admin/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
-	                   +'出品者　   : <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
+	                   +'商品名　   :  <a href="/auction/admin/products/detail/'+value.id+'">'+value.product_name+'</a><br/>'
+	                   +'出品者　   :  <a href="/auction/admin/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
-	                   +'終了時刻  : '+value.end_date+'<br/>'
-	                   + link
-	                   +'</td></tr>');
+	                   +'終了時刻  : '+end_date.getFullYear()+'年'
+	                                + (end_date.getMonth()+1) +'月'
+	                                + end_date.getDate() + "日　"
+					   	            + end_date.getHours() + "時"
+						            + end_date.getMinutes() + "分"+'<br/>'
+						            + link
+						            +'</td></tr>');
 	});
-	$("#result").append("</table>")
+	$("#result").after("</table>")
 }
 
 function adminCategorySearchError(result){

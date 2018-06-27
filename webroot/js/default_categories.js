@@ -68,7 +68,7 @@ function tableAttr(products){
 	                   +'出品者　   :  <a href="/auction/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+end_date.getFullYear()+'年'
-	                                + end_date.getMonth()+1 +'月'
+	                                + (end_date.getMonth()+1) +'月'
 	                                + end_date.getDate() + "日　"
 					   	            + end_date.getHours() + "時"
 						            + end_date.getMinutes() + "分"+'<br/>'
@@ -106,7 +106,7 @@ function tableAttrOnLoad(products){
 	                   +'出品者　   :  <a href="/auction/products/user/'+value.user.id+'">'+value.user.user_name+'</a><br/>'
 	                   +'入札数　   : '+value.bids.length+'<br/>'
 	                   +'終了時刻  : '+end_date.getFullYear()+'年'
-	                                + end_date.getMonth()+1 +'月'
+	                                + (end_date.getMonth()+1) +'月'
 	                                + end_date.getDate() + "日　"
 					   	            + end_date.getHours() + "時"
 						            + end_date.getMinutes() + "分"+'<br/>'

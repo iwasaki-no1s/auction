@@ -31,7 +31,7 @@ class ProductsController extends AppController
 		$user=$this->Products->Users->get($user_id);
 		$products=$this->Products
 		->find()
-		->contain(['Users','Categories'])
+		->contain(['Users','Categories','Bids','Images'])
 		->where(['user_id'=>$user_id])
 		->all();
 		$this->set(compact('user','products'));
