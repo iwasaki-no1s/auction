@@ -39,10 +39,8 @@ function categorySelectFormInit(){
 	$('#message').remove();
 	$('.help-block').remove();
 }
-function tableAttr(data){
+function tableAttr(products){
 	$('#result').text('');
-	var products = data.products;
-	var login_user_id = data.login_user_id;
 	if(products.length==0){
 		$('#result table').remove();
 		$('#result').text('選択されたカテゴリーには商品がありません');
@@ -50,6 +48,7 @@ function tableAttr(data){
 	}
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
+		var end_date = new Date(value.end_date);
 		var image_url = "";
 		if(value.images.length == 0){
 			image_url = "no_image.png";
@@ -79,17 +78,15 @@ function tableAttr(data){
 	});
 	$("#result").after("</table>")
 }
-function tableAttrOnLoad(data){
+function tableAttrOnLoad(products){
 	$('#result').text('');
-	var products = data.products;
-	var login_user_id = data.login_user_id;
 	if(products.length==0){
 		$('#result table').remove();
-		$('#result').text('選択されたカテゴリーには商品がありません');
 		return;
 	}
 	$('#result').append('<table>');
 	$.each(products, function(key, value){
+		var end_date = new Date(value.end_date);
 		var image_url = "";
 		if(value.images.length == 0){
 			image_url = "no_image.png";

@@ -26,7 +26,7 @@ class CategoriesController extends AppController
 				->find()
 				->contain(['Users','Categories','Bids','Images'])
 				->where(['category_id'=>$category_id])
-				->andWhere(['sold'=>0])
+				->andwhere(['sold'=>0])
 				->all();
 			$login_user_id[] = "";
 			$login_user_id = $this->MyAuth->user('id');
