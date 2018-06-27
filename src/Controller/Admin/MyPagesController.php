@@ -42,7 +42,7 @@ class MyPagesController extends AppController
 						*/
 						//	->andwhere(['Images.main_image'=>1])
 						->select([
-										"id","product_name","categories.name","users.user_name","sold","end_date",
+										"id","product_name","categories.name","users.user_name","sold","end_date","user_id","category_id",
 										"images.image_url","images.main_image"
 								])
 						->leftJoinWith('Images',function($q){
