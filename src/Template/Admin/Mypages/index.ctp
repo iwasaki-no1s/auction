@@ -1,15 +1,4 @@
-<script>
-	$(function(){
-		$("#mypage-menu td").on('click',function(){
-			$("table").attr("class","passive");
-			$("table:eq(0)").attr("class","active");
-			var display=document.getElementById(this.id);
-			$("table[name="+display.id+"]").attr("class","active");
-			$("#mypage-menu td").css("background-color","#fff")
-			$(this).css("background-color","#b2ff99")
-		})
-	});
-</script>
+<?php $this->prepend('script',$this->Html->script('mypages_index'));?>
 <table id="mypage-menu">
 	<tr><td id="my-exhibit"><h3>出品した商品</h3></td><td id="my-bids-history"><h3>入札履歴</h3></td><td id="my-favorites"><h1>☆</h1></td></tr>
 </table>

@@ -3,15 +3,19 @@
 <div id="detail-box">
 	<div id="detail-image">
 		<?php
-			//dump($product->images[0]);
-			$size=count($product->images);
-/*			
+			$main_image_check=false;
 			foreach($product->images as $image){
 				if($image->main_image==1){
 					echo $this->Html->image("/upload_img/{$image->image_url}");
+					$main_image_check=true;
 				}
 			}
-*/
+			if($main_image_check==false){
+				echo $this->Html->image("/upload_img/no_image.png");
+			}
+/*
+			//dump($product->images[0]);
+			$size=count($product->images);	
 			if($product->images){
 				$i=0;
 				if($i==$size){
@@ -23,6 +27,7 @@
 			}else{
 				echo $this->Html->image("/upload_img/no_image.png");
 			}
+*/
 		?>
 	</div>
 	<div id="detail-description">

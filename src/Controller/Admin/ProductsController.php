@@ -268,6 +268,7 @@ class ProductsController extends AppController
 					->find('list')
 					->where(['product_id'=>$product_id]);
 		//dump($image);
+		$image_count=$this->imageCount($product_id);
 		if($product->user_id==$user_id){
 			if($product->sold==0){
 				if($this->request->is(['patch','post','put'])){
@@ -279,7 +280,7 @@ class ProductsController extends AppController
 					$this->Flash->error(__('商品情報の変更に失敗しました'));
 					$this->set(compact(['product','category']));
 				}
-				$this->set(compact('product','category','image'));
+				$this->set(compact('product','category','image','image_count'));
 			}else{
 				$this->Flash->error(__("落札された商品です，編集できません"));
 				return $this->redirect(['action'=>'detail',$product_id]);
@@ -292,12 +293,21 @@ class ProductsController extends AppController
 	
 	
 	//お気に入りが既に登録されているかのcheck
-	public function check_f($user_id,$product_id){
+	private function check_f($user_id,$product_id){
 		$favorite_check=$this->Products->Favorites
 		->find()
 		->where(['user_id'=>$user_id])
 		->andwhere(['product_id'=>$product_id])
 		->count();
 		return $favorite_check;
+	}
+	
+	private function imageCount($product_id)
+	{
+		$c=$this->Products->Images
+		->find()
+		->where(['product_id'=>$product_id])
+		->count();
+		return $c;
 	}
 }
