@@ -31,17 +31,21 @@ class ImagesController extends AppController
 		}
 		$image=$this->Images->newEntity();
 		$main_image_count=$this->mainImageCount($product_id);
+		
 		if($this->request->is('post')){
 			//dump($this->request->data['file_name']);
 			//move_upload_file
 			$dir = realpath(WWW_ROOT . "/upload_img");
 			$limitFileSize = 1024 * 1024;
+			$temp['file']="";
 			try {
 				$temp['file'] = $this->file_upload($this->request->data['file_name'], $dir, $limitFileSize);
 				//dump($temp);
 			} catch (RuntimeException $e){
-				$this->Flash->error(__('ファイルのアップロードができませんでした.'));
-				$this->Flash->error(__($e->getMessage()));
+				//$this->Flash->error(__('ファイルのアップロードができませんでした.'));
+				//$this->Flash->error(__($e->getMessage()));
+				$this->Flash->error(__('画像が選択されていません'));
+				return $this->redirect(['action'=>'add',$product_id]);
 			}
 			$image->product_id=$product->id;
 			$image->image_url=$temp['file'];

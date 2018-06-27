@@ -21,14 +21,15 @@ echo $this->Form->input('category_id',[
 	]);
 echo $this->Form->button("編集を確定する");
 echo $this->Form->end();
-
-echo $this->Form->create("",['url'=>['controller'=>'images','action'=>'change',$product->id]]);
-echo $this->Form->input('id',[
-	'options'=>$image,
-	'label'=>"main画像",
-	]);
+if($image_count>=2){
+	echo $this->Form->create("",['url'=>['controller'=>'images','action'=>'change',$product->id]]);
+	echo $this->Form->input('id',[
+		'options'=>$image,
+		'label'=>"main画像",
+		]);
 echo $this->Form->button("main画像を変更する");
 echo $this->Form->end();
+}
 echo $this->Html->link("画像を追加する",["controller"=>"images","action"=>"add",$product->id],["class"=>["btn btn-primary"]]);
 echo $this->Html->link("現在の価格でオークションを終了する",["controller"=>"products","action"=>"finish",$product->id],["class"=>["btn btn-warning"]]);
 echo $this->Html->link("出品を取り消す",["controller"=>"products","action"=>"delete",$product->id],["class"=>["btn btn-danger"]]);

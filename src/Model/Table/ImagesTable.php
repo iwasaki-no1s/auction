@@ -26,7 +26,9 @@ class ImagesTable extends Table
 		$validator
 			->integer('id')
 			->allowEmpty('id','create');
-		
+		$validator
+			->requirePresence('image_name','create')
+			->notEmpty('image_name');
 		return $validator;
 	}
 }
