@@ -35,7 +35,29 @@
 		<div>カテゴリー: <?=$this->Html->link($product->category->name,["controller"=>"categories","action"=>"index",$product->category_id]); ?></div>
 		<div>入札数　：   <?= count($product->bids); ?></div>
 		<div>終了時刻：  <?=h($product->end_date->format("Y年m月d日H時i分")); ?></div>
-		<div>詳細　　:  <?=h($product->detail); ?></div>
+		<!--オークションが終了している，かつ自分が出品した商品は落札者の氏名と住所を表示-->
+		<?php if($product->sold==1 && $user_id==$product->user_id){ ?>
+			<?php
+				$max_price=0;
+				foreach($bids as $bid){
+					//dump($bid);
+					//dump($bid->price);
+					if($max_price < $bid->price){
+						$max_price=$bid->price;
+						$who=$bid->user->user_name;
+						$where=$bid->user->address;
+						//dump($who);
+					}
+				}
+			?>
+			<?php if($max_price>0){ ?>
+				<div>落札者　　: <?=$who ?></div>
+				<div>住所　　　 : <?=$where ?></div>
+			<?php } ?>
+		<?php } ?>
+		<?php if($product->detail){ ?>
+			<div>詳細　　:  <?=h($product->detail); ?></div>
+		<?php } ?>
 		<?php if($product->sold==0){ ?>
 			<?php if($user_id==$product->user_id){ ?>
 				<div><?=$this->Html->link("編集する",["controller"=>"products","action"=>"edit",$product->id],["class"=>["btn btn-success"]]); ?></div>

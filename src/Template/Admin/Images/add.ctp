@@ -1,5 +1,8 @@
 <h1 class="page-header">画像登録</h1>
-
+<?php
+	echo $this->Html->link("編集を終了する",["controller"=>"products","action"=>"detail",$product->id],["class"=>["btn btn-success"]]);
+	echo $this->Html->link("出品を取り消す",["controller"=>"products","action"=>"delete",$product->id],["class"=>["btn btn-danger"]]);
+?>
 <?php
 	echo $this->Form->create($image,["enctype"=>"multipart/form-data"]);
 	echo $this->Form->input('file_name',["type"=>"file",
@@ -18,6 +21,4 @@
 <?php
 	echo $this->Form->button("画像を登録する");
 	echo $this->Form->end();
-	echo $this->Html->link("編集を終了する",["controller"=>"products","action"=>"detail",$product->id],["class"=>["btn btn-success"]]);
-	echo $this->Html->link("出品を取り消す",["controller"=>"products","action"=>"delete",$product->id],["class"=>["btn btn-danger"]]);
 ?>
