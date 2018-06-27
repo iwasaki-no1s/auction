@@ -37,9 +37,9 @@ function categorySearchFormInit(){
 }
 
 function tableAttr(data){
-	$('#result').text('');
 	var products = data.products;
 	var login_user_id = data.login_user_id;
+	$('#result').text('');
 	if(products.length==0){
 		$('#result table').remove();
 		$('#result').text('選択されたカテゴリーには商品がありません');
